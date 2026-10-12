@@ -1,0 +1,211 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String?
+  email        String?   @unique
+  image        String?
+  role         UserRole  @default(USER)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  passwordHash String?
+  referralCode String?   @unique
+  referredBy   String?
+  attempts     Attempt[]
+  scores       Score[]
+}
+
+model Category {
+  id            String        @id @default(cuid())
+  name          String
+  slug          String        @unique
+  description   String?
+  icon          String?
+  image         String?
+  sortOrder     Int           @default(0)
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  puzzles       Puzzle[]
+  subcategories Subcategory[]
+}
+
+model Subcategory {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String
+  description String?
+  categoryId  String
+  createdAt   DateTime @default(now())
+  puzzles     Puzzle[]
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, slug])
+}
+
+model Puzzle {
+  id             String       @id @default(cuid())
+  title          String
+  slug           String       @unique
+  description    String?
+  type           PuzzleType
+  difficulty     Difficulty   @default(MEDIUM)
+  questionCount  Int          @default(1)
+  estimatedTime  Int?
+  featured       Boolean      @default(false)
+  trending       Boolean      @default(false)
+  published      Boolean      @default(false)
+  image          String?
+  thumbnail      String?
+  seoTitle       String?
+  seoDescription String?
+  categoryId     String
+  subcategoryId  String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  publishedAt    DateTime?
+  attempts       Attempt[]
+  category       Category     @relation(fields: [categoryId], references: [id])
+  subcategory    Subcategory? @relation(fields: [subcategoryId], references: [id])
+  tags           PuzzleTag[]
+  questions      Question[]
+}
+
+model Question {
+  id          String       @id @default(cuid())
+  question    String
+  type        QuestionType @default(MULTIPLE_CHOICE)
+  image       String?
+  explanation String?
+  points      Int          @default(1)
+  sortOrder   Int          @default(0)
+  puzzleId    String
+  createdAt   DateTime     @default(now())
+  answers     Answer[]
+  options     Option[]
+  puzzle      Puzzle       @relation(fields: [puzzleId], references: [id], onDelete: Cascade)
+}
+
+model Option {
+  id         String   @id @default(cuid())
+  text       String
+  image      String?
+  isCorrect  Boolean  @default(false)
+  sortOrder  Int      @default(0)
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model Tag {
+  id        String      @id @default(cuid())
+  name      String
+  slug      String      @unique
+  createdAt DateTime    @default(now())
+  puzzles   PuzzleTag[]
+}
+
+model PuzzleTag {
+  puzzleId String
+  tagId    String
+  puzzle   Puzzle @relation(fields: [puzzleId], references: [id], onDelete: Cascade)
+  tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([puzzleId, tagId])
+}
+
+model Attempt {
+  id              String        @id @default(cuid())
+  userId          String?
+  puzzleId        String
+  status          AttemptStatus @default(STARTED)
+  score           Int           @default(0)
+  totalPoints     Int           @default(0)
+  percentage      Float?
+  startedAt       DateTime      @default(now())
+  completedAt     DateTime?
+  durationSeconds Int?
+  answers         Answer[]
+  puzzle          Puzzle        @relation(fields: [puzzleId], references: [id], onDelete: Cascade)
+  user            User?         @relation(fields: [userId], references: [id])
+}
+
+model Answer {
+  id         String   @id @default(cuid())
+  attemptId  String
+  questionId String
+  optionId   String?
+  isCorrect  Boolean  @default(false)
+  points     Int      @default(0)
+  createdAt  DateTime @default(now())
+  attempt    Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, questionId])
+}
+
+model Score {
+  id         String   @id @default(cuid())
+  userId     String
+  puzzleId   String
+  score      Int
+  percentage Float?
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([puzzleId, score])
+  @@index([userId, createdAt])
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+  EXPERT
+}
+
+enum PuzzleType {
+  QUIZ
+  BRAIN_PUZZLE
+  RIDDLE
+  LOGIC
+  OBSERVATION
+  DETECTIVE
+  NUMBER
+  MEMORY
+  REACTION
+  PERSONALITY
+  TRIVIA
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  IMAGE
+  TEXT
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  EDITOR
+}
+
+enum AttemptStatus {
+  STARTED
+  COMPLETED
+  ABANDONED
+}

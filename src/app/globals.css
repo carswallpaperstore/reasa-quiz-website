@@ -1,0 +1,2107 @@
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  @import "tailwindcss";
+
+  :root{--bg:#050716;--panel:#0b1030;--panel2:#10183d;--line:rgba(145,155,255,.19);--text:#f6f7ff;--muted:#a6afd4;--purple:#8b5cf6;--pink:#ed4dff;--cyan:#47e8ff;--green:#34e6b0;}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--bg)}
+  body{margin:0;background:radial-gradient(ellipse at 50% -20%,#20245b 0%,#090b20 42%,#050716 75%);color:var(--text);font-family:"DM Sans",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+  a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  img{max-width:100%;height:auto;display:block}
+  ::selection{background:#a855f7;color:#fff}
+  .reasa-shell{width:min(1240px,calc(100% - 40px));margin-inline:auto}
+  .reasa-header{position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(145,155,255,.15);background:rgba(5,7,22,.82);backdrop-filter:blur(18px)}
+  .reasa-header-inner{width:min(1400px,calc(100% - 40px));height:72px;margin:auto;display:flex;align-items:center;gap:28px}
+  .reasa-hero h1,.reasa-section-title,.reasa-page-hero h1,.reasa-auth-card h1,.reasa-policy h1{font-family:Manrope,"DM Sans",ui-sans-serif,system-ui,sans-serif}
+  .reasa-logo{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;font-size:21px;font-weight:950;letter-spacing:-.04em}
+  .reasa-logo-mark{display:grid;place-items:center;width:35px;height:35px;border-radius:12px;background:linear-gradient(135deg,#9b5cff,#ec4dff);box-shadow:0 0 28px #8b5cf65c;color:white}
+  .reasa-nav{display:flex;align-items:center;gap:5px;margin:auto}
+  .reasa-nav a{font-size:12px;font-weight:750;color:#b7bedf;padding:10px 12px;border-radius:10px;transition:background .18s,color .18s}
+  .reasa-nav a:hover,.reasa-nav a.active{color:#fff;background:#ffffff0d}
+  .reasa-header-actions{display:flex;align-items:center;gap:9px}
+  .reasa-icon-button{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:12px;color:#c9cff4;background:#ffffff06}
+  .reasa-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:13px;padding:12px 17px;font-size:13px;font-weight:850;transition:transform .18s,filter .18s,border-color .18s;cursor:pointer}
+  .reasa-button:hover{transform:translateY(-1px);filter:brightness(1.08)}
+  .reasa-button-primary{color:white;background:linear-gradient(105deg,#793cff,#c43dff);box-shadow:0 8px 28px #8b35ff35}
+  .reasa-button-ghost{color:#f2f3ff;background:#ffffff08;border-color:var(--line)}
+  .reasa-mobile-toggle{display:none;margin-left:auto}
+  .reasa-mobile-menu{display:none;padding:8px 20px 18px;border-top:1px solid var(--line);background:#080b20}
+  .reasa-mobile-menu a{display:block;padding:12px 4px;color:#d6daf5;font-size:14px;font-weight:700}
+  .reasa-hero{position:relative;isolation:isolate;overflow:hidden;min-height:510px;display:flex;align-items:center;border-bottom:1px solid #8c65ff20;background:#080b22}
+  .reasa-hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(90deg,rgba(5,7,22,.97) 0%,rgba(5,7,22,.76) 43%,rgba(5,7,22,.12) 100%),linear-gradient(0deg,#050716 0%,transparent 42%),url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2000&q=80');background-size:cover;background-position:center 42%;transform:scale(1.01)}
+  .reasa-hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 78% 30%,#b249ff2b,transparent 32%),radial-gradient(circle at 55% 90%,#1c61ff1c,transparent 40%)}
+  .reasa-hero-inner{width:min(1240px,calc(100% - 40px));margin:auto;padding:76px 0 84px}
+  .reasa-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid #b96cff4a;border-radius:99px;background:#7c3aed18;color:#d9b8ff;font-size:10px;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
+  .reasa-hero h1{max-width:660px;margin:22px 0 16px;font-size:clamp(40px,5.7vw,76px);line-height:.99;font-weight:950;letter-spacing:-.055em}
+  .reasa-gradient-text{background:linear-gradient(95deg,#d4a5ff 0%,#f27aff 48%,#5de9ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .reasa-hero-copy{max-width:520px;color:#c3c9e6;font-size:15px;line-height:1.8}
+  .reasa-hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .reasa-stats{display:flex;gap:30px;flex-wrap:wrap;margin-top:38px}
+  .reasa-stat strong{display:block;font-size:22px;font-weight:950;letter-spacing:-.04em;color:white}
+  .reasa-stat span{display:block;margin-top:3px;color:#a8b0d6;font-size:10px;font-weight:750;letter-spacing:.05em;text-transform:uppercase}
+  .reasa-section{padding:48px 0 12px}
+  .reasa-section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}
+  .reasa-section-kicker{color:#ba7cff;font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+  .reasa-section-title{margin:7px 0 0;font-size:clamp(23px,3vw,31px);line-height:1.1;font-weight:950;letter-spacing:-.035em}
+  .reasa-section-desc{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.65}
+  .reasa-text-link{display:inline-flex;align-items:center;gap:6px;color:#c7a5ff;font-size:12px;font-weight:850;white-space:nowrap}
+  .reasa-category-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:13px}
+  .reasa-category-card{position:relative;isolation:isolate;min-height:158px;overflow:hidden;border:1px solid #ffffff15;border-radius:17px;padding:17px;background:#111638;transition:transform .2s,border-color .2s,box-shadow .2s}
+  .reasa-category-card::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(180deg,rgba(8,11,32,.08),rgba(8,11,32,.95)),var(--card-image);background-size:cover;background-position:center;transition:transform .3s}
+  .reasa-category-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,var(--card-tint,rgba(139,92,246,.2)),transparent 70%)}
+  .reasa-category-card:hover{transform:translateY(-4px);border-color:#a56dff88;box-shadow:0 12px 34px #6e35ff25}
+  .reasa-category-icon{display:grid;place-items:center;width:43px;height:43px;border:1px solid #ffffff22;border-radius:14px;background:linear-gradient(135deg,#9a49ff9c,#fa4be83d);box-shadow:0 0 24px #994aff35;font-size:22px}
+  .reasa-category-card h3{margin:18px 0 5px;font-size:14px;font-weight:900}
+  .reasa-category-card p{margin:0;color:#bbc2e4;font-size:10px;line-height:1.5}
+  .reasa-category-card small{display:block;margin-top:9px;color:#d6c3ff;font-size:9px;font-weight:800}
+  .reasa-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .reasa-quiz-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,#111735,#0a0e25);transition:transform .2s,border-color .2s,box-shadow .2s}
+  .reasa-quiz-card:hover{transform:translateY(-4px);border-color:#9e66ff80;box-shadow:0 16px 40px #0005,0 0 28px #7d3bff12}
+  .reasa-quiz-image{height:158px;position:relative;overflow:hidden;background:#151a45}
+  .reasa-quiz-image img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+  .reasa-quiz-card:hover .reasa-quiz-image img{transform:scale(1.04)}
+  .reasa-quiz-image::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0b1029,transparent 70%)}
+  .reasa-quiz-body{padding:16px}
+  .reasa-pill{display:inline-flex;align-items:center;gap:5px;border:1px solid #8c63ff55;border-radius:99px;background:#8b5cf61b;padding:5px 8px;color:#d9c3ff;font-size:9px;font-weight:850}
+  .reasa-quiz-body h3{margin:11px 0 7px;font-size:16px;font-weight:900;line-height:1.3}
+  .reasa-quiz-body p{margin:0;color:#aeb7dc;font-size:11px;line-height:1.6}
+  .reasa-card-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;color:#b9c1e4;font-size:10px;font-weight:750}
+  .reasa-challenge-band{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:24px;overflow:hidden;margin-top:44px;padding:27px 30px;border:1px solid #ad73ff42;border-radius:22px;background:linear-gradient(105deg,#17103b,#101735 65%,#111c47)}
+  .reasa-challenge-band::after{content:"";position:absolute;right:-40px;top:-100px;width:260px;height:260px;border-radius:50%;z-index:-1;background:#7c3cff2b;filter:blur(12px)}
+  .reasa-footer{margin-top:60px;border-top:1px solid var(--line);background:#050716}
+  .reasa-footer-inner{width:min(1240px,calc(100% - 40px));margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:27px 0;color:#9ea8d0;font-size:11px}
+  .reasa-page-hero{position:relative;overflow:hidden;padding:54px 0 46px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 80% 20%,#5e32ad3b,transparent 36%),linear-gradient(120deg,#11102f,#090d24)}
+  .reasa-page-hero h1{margin:12px 0;font-size:clamp(30px,4vw,48px);font-weight:950;letter-spacing:-.04em}
+  .reasa-page-hero p{max-width:650px;color:#b5bee0;font-size:14px;line-height:1.8}
+  .reasa-page-main{min-height:65vh;padding:30px 0 60px}
+  .reasa-empty{border:1px solid var(--line);border-radius:20px;background:#0d1230;padding:45px 20px;text-align:center;color:#b5bee0}
+  .reasa-quiz-stage{min-height:calc(100svh - 72px);position:relative;isolation:isolate;overflow:hidden;background:#050716}
+  .reasa-quiz-stage::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(90deg,#050716ed,#070b21c7 45%,#070b21d9),linear-gradient(0deg,#050716 0%,transparent 50%),var(--quiz-bg);background-size:cover;background-position:center}
+  .reasa-quiz-stage::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 70% 10%,#843dff20,transparent 36%)}
+  .reasa-quiz-wrap{width:min(900px,calc(100% - 32px));margin:auto;padding:25px 0 24px}
+  .reasa-quiz-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:23px}
+  .reasa-quiz-brand{font-size:20px;font-weight:950;letter-spacing:-.04em}
+  .reasa-quiz-top-meta{color:#adb7e1;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .reasa-quiz-progress-card{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding:14px 17px;border:1px solid var(--line);border-radius:15px;background:#090e27c9;backdrop-filter:blur(12px)}
+  .reasa-progress-track{height:7px;flex:1;overflow:hidden;border-radius:99px;background:#252b54}
+  .reasa-progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#28d9f7,#a855f7,#ed4dff);box-shadow:0 0 14px #a855f7a8;transition:width .25s ease}
+  .reasa-quiz-card-main{overflow:hidden;border:1px solid #a78bfa3d;border-radius:24px;background:linear-gradient(155deg,rgba(15,21,55,.97),rgba(7,10,29,.97));box-shadow:0 24px 80px #0008,0 0 44px #713dff12}
+  .reasa-quiz-art{height:190px;overflow:hidden;position:relative;background:#10183c}
+  .reasa-quiz-art img{width:100%;height:100%;object-fit:cover}
+  .reasa-quiz-art::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0d1230,transparent 60%)}
+  .reasa-quiz-content{padding:clamp(19px,4vw,34px)}
+  .reasa-quiz-question{margin:12px 0 23px;font-size:clamp(23px,3.4vw,35px);font-weight:900;line-height:1.2;letter-spacing:-.03em}
+  .reasa-answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .reasa-answer-option{display:flex;align-items:center;gap:12px;min-height:62px;width:100%;padding:12px 14px;border:1px solid #424b80;border-radius:14px;background:linear-gradient(110deg,#111a40,#0b1230);color:#edf0ff;text-align:left;font-size:14px;font-weight:750;transition:border-color .16s,background .16s,transform .16s;touch-action:manipulation}
+  .reasa-answer-option:hover:not(:disabled){border-color:#a56bff;background:#19183f;transform:translateY(-1px)}
+  .reasa-answer-letter{display:grid;place-items:center;flex:0 0 32px;height:32px;border:1px solid #7e65ff80;border-radius:10px;background:#763eff22;color:#d9c6ff;font-size:12px;font-weight:950}
+  .reasa-answer-option.selected{border-color:#8b5cf6;background:#3d237c45;box-shadow:0 0 0 2px #8b5cf622}
+  .reasa-answer-option.correct{border-color:#34e6b0;background:#0b513e66;color:#9af9d9}
+  .reasa-answer-option.wrong{border-color:#ff648a;background:#641c3966;color:#ffb8c8}
+  .reasa-answer-option:disabled{cursor:default}
+  .reasa-quiz-feedback{margin-top:15px;padding:13px 15px;border-radius:13px;font-size:12px;line-height:1.6}
+  .reasa-quiz-feedback.good{border:1px solid #34e6b04d;background:#0d3c335c;color:#a9f9dd}
+  .reasa-quiz-feedback.bad{border:1px solid #ff648a4d;background:#4a172c66;color:#ffc0d0}
+  .reasa-quiz-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;color:#9da8d4;font-size:11px}
+  .reasa-spinner{width:14px;height:14px;border:2px solid #ffffff55;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .reasa-result-card{border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#111735,#080c24);padding:clamp(22px,5vw,42px);box-shadow:0 20px 70px #0005}
+  .reasa-result-stat{padding:20px;border:1px solid var(--line);border-radius:16px;background:#ffffff05}
+  @media(max-width:1050px){.reasa-category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.reasa-nav{gap:0}.reasa-nav a{padding-inline:8px}.reasa-hero::before{background-position:58% center}}
+  @media(max-width:760px){.reasa-shell,.reasa-hero-inner,.reasa-footer-inner{width:calc(100% - 30px)}.reasa-header-inner{width:calc(100% - 30px);height:62px}.reasa-nav,.reasa-header-actions{display:none}.reasa-mobile-toggle{display:grid}.reasa-mobile-menu.open{display:block}.reasa-hero{min-height:510px;align-items:flex-end}.reasa-hero::before{background-image:linear-gradient(90deg,rgba(5,7,22,.88),rgba(5,7,22,.48)),linear-gradient(0deg,#050716 0%,rgba(5,7,22,.3) 65%,rgba(5,7,22,.2)),url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1000&q=75');background-position:62% center}.reasa-hero-inner{padding:75px 0 43px}.reasa-hero h1{font-size:clamp(38px,10vw,57px)}.reasa-hero-copy{font-size:13px}.reasa-stats{gap:18px;margin-top:28px}.reasa-stat strong{font-size:19px}.reasa-section{padding-top:36px}.reasa-category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.reasa-category-card{min-height:145px;padding:13px}.reasa-category-icon{width:38px;height:38px}.reasa-category-card h3{font-size:12px;margin-top:13px}.reasa-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.reasa-quiz-image{height:120px}.reasa-quiz-body{padding:12px}.reasa-quiz-body h3{font-size:13px}.reasa-quiz-body p{font-size:10px}.reasa-card-meta{font-size:9px}.reasa-challenge-band{align-items:flex-start;flex-direction:column;margin-top:30px;padding:22px}.reasa-footer-inner{align-items:flex-start;flex-direction:column;padding:24px 0;gap:10px}.reasa-page-hero{padding:38px 0 32px}.reasa-quiz-stage{min-height:calc(100svh - 62px)}.reasa-quiz-wrap{width:calc(100% - 24px);padding:14px 0 18px}.reasa-quiz-top{margin-bottom:14px}.reasa-quiz-progress-card{padding:11px 12px}.reasa-quiz-art{height:150px}.reasa-quiz-content{padding:18px 14px}.reasa-quiz-question{font-size:24px;margin-bottom:18px}.reasa-answer-grid{grid-template-columns:1fr;gap:9px}.reasa-answer-option{min-height:56px;padding:10px 11px;font-size:13px}.reasa-quiz-bottom{align-items:flex-start;flex-direction:column}.reasa-quiz-top-meta{font-size:9px}}
+  @media(max-width:760px){.reasa-split-card{grid-template-columns:1fr!important}.reasa-split-card .reasa-quiz-image{height:170px!important;min-height:170px!important}}
+  @media(max-width:390px){.reasa-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.reasa-feature-grid{grid-template-columns:1fr}.reasa-hero-actions .reasa-button{width:100%}.reasa-stats{gap:14px}.reasa-stat strong{font-size:17px}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+  /* Production-oriented navigation, forms, search and small-screen refinements */
+  .reasa-desktop-hidden{display:none}
+  .reasa-drawer-backdrop{position:fixed;inset:0;z-index:100;background:rgba(2,4,15,.68);opacity:0;visibility:hidden;transition:opacity .28s ease,visibility .28s ease;backdrop-filter:blur(3px)}
+  .reasa-drawer{position:fixed;z-index:101;inset:0 auto 0 0;width:min(360px,88vw);padding:22px 20px max(22px,env(safe-area-inset-bottom));display:flex;flex-direction:column;background:linear-gradient(165deg,#111936,#070a1c 72%);border-right:1px solid #a5a9ff25;box-shadow:22px 0 70px #0008;transform:translateX(-105%);visibility:hidden;transition:transform .32s cubic-bezier(.22,.8,.25,1),visibility .32s;will-change:transform}
+  .reasa-drawer.is-open{transform:translateX(0);visibility:visible}.reasa-drawer-backdrop.is-open{opacity:1;visibility:visible}
+  .reasa-drawer-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:25px;border-bottom:1px solid var(--line)}
+  .reasa-drawer-label{margin:28px 10px 12px;color:#8c98c7;font-size:10px;font-weight:900;letter-spacing:.17em}
+  .reasa-drawer-links{display:grid;gap:6px}.reasa-drawer-links a,.reasa-drawer-search,.reasa-drawer-bottom>a:first-child{display:flex;align-items:center;gap:13px;min-height:50px;padding:0 13px;border:1px solid transparent;border-radius:13px;color:#d9def7;font-size:14px;font-weight:700;transition:background .18s,border-color .18s,transform .18s}.reasa-drawer-links a:hover,.reasa-drawer-search:hover{background:#ffffff0a;border-color:var(--line);transform:translateX(3px)}.reasa-drawer-links a>svg:first-child,.reasa-drawer-search svg{color:#bda0ff}.reasa-drawer-chevron{margin-left:auto;color:#6875a7}.reasa-drawer-search{margin-top:20px;border-color:var(--line);background:#ffffff05}.reasa-drawer-bottom{display:grid;gap:10px;margin-top:auto;padding-top:22px;border-top:1px solid var(--line)}.reasa-drawer-bottom .reasa-button{width:100%;min-height:48px}.reasa-drawer-bottom>a:first-child{justify-content:center;border-color:var(--line)}
+  .reasa-live-timer{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;color:#fff;font-size:12px;font-weight:850;font-variant-numeric:tabular-nums;background:#ffffff0a;border:1px solid var(--line);border-radius:9px;padding:7px 9px}
+  .reasa-completed-badge{position:absolute;z-index:2;top:10px;left:10px;display:inline-flex;align-items:center;gap:5px;padding:7px 9px;border:1px solid #48e4b680;border-radius:99px;background:#052e27e8;color:#9af9d9;font-size:10px;font-weight:850;backdrop-filter:blur(8px)}.reasa-completed-inline{display:inline-flex;align-items:center;gap:4px;color:#7af0c8;font-size:10px;font-weight:800}.reasa-quiz-label-row{display:flex;align-items:center;justify-content:space-between;gap:7px;flex-wrap:wrap}.reasa-completed-card{border-color:#34e6b066}
+  .reasa-search-form{display:flex;gap:10px;max-width:720px;margin:22px 0 12px}.reasa-search-form input,.reasa-auth-form input,.reasa-referral-label input{width:100%;min-width:0;min-height:50px;padding:0 15px;border:1px solid #59628f80;border-radius:13px;outline:none;background:#090f28;color:#f5f6ff;font:inherit;font-size:14px;transition:border-color .18s,box-shadow .18s}.reasa-search-form input:focus,.reasa-auth-form input:focus,.reasa-referral-label input:focus{border-color:#a77bff;box-shadow:0 0 0 3px #9d66ff24}.reasa-search-form button{flex:0 0 auto}.reasa-subhead{margin:26px 0 13px;font-size:16px}.reasa-search-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.reasa-search-result{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px;border:1px solid var(--line);border-radius:14px;background:#0c1230}.reasa-search-result svg{color:#c6a7ff}
+  .reasa-auth-page{min-height:calc(100svh - 150px);display:grid;place-items:center;padding:42px 18px 60px;background:radial-gradient(ellipse at 50% 0%,#4d2d8833,transparent 45%)}.reasa-auth-card{width:min(100%,480px);padding:clamp(22px,5vw,38px);border:1px solid var(--line);border-radius:25px;background:linear-gradient(150deg,#121a3a,#090d23);box-shadow:0 24px 90px #0005}.reasa-auth-icon{display:grid;place-items:center;width:49px;height:49px;margin-bottom:20px;border:1px solid #9f76ff66;border-radius:15px;background:#8b5cf61c;color:#d9c4ff}.reasa-auth-card h1{margin:15px 0 8px;font-size:clamp(27px,5vw,35px);line-height:1.13;letter-spacing:-.04em}.reasa-auth-copy{margin:0;color:#aeb7dc;font-size:13px;line-height:1.75}.reasa-auth-form{display:grid;gap:16px;margin-top:24px}.reasa-auth-form label,.reasa-referral-label{display:grid;gap:8px;color:#e0e5ff;font-size:12px;font-weight:800}.reasa-auth-input-icon{position:relative;display:block}.reasa-auth-input-icon>svg{position:absolute;top:17px;left:14px;color:#8d9ac7}.reasa-auth-input-icon input{padding-left:42px}.reasa-auth-submit{width:100%;min-height:50px;margin-top:3px}.reasa-auth-submit:disabled{opacity:.65;cursor:wait}.reasa-auth-error{display:flex;align-items:flex-start;gap:8px;padding:12px;border:1px solid #ff648a55;border-radius:12px;background:#641c3926;color:#ffb8c8;font-size:12px;line-height:1.5}.reasa-auth-switch{margin:20px 0 0;text-align:center;color:#b5bee0;font-size:12px}.reasa-auth-switch a{color:#d1adff;font-weight:850}.reasa-auth-legal{display:flex;justify-content:center;align-items:center;gap:6px;margin:19px 0 0;color:#8290bd;font-size:10px}.reasa-auth-legal svg{color:#6fe8c2}.reasa-referral-note,.reasa-auth-status{margin:0;color:#7df0c8;font-size:11px}.reasa-auth-actions{display:flex;gap:10px;margin-top:16px}.reasa-auth-actions .reasa-button{flex:1}.reasa-logout{display:flex;align-items:center;justify-content:center;gap:7px;margin:25px auto 0;padding:10px 14px;border:0;background:transparent;color:#aeb7dc;font-size:12px}.reasa-referral-label{margin-top:22px}.reasa-policy{max-width:850px;padding:clamp(22px,4vw,45px);border:1px solid var(--line);border-radius:22px;background:#0b1028}.reasa-policy h1{margin:15px 0 12px;font-size:clamp(30px,5vw,44px);letter-spacing:-.04em}.reasa-policy h2{margin:28px 0 8px;font-size:18px}.reasa-policy p{color:#b7c0e0;font-size:14px;line-height:1.85}.reasa-footer-layout{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.5fr;align-items:start;gap:35px}.reasa-footer-brand p,.reasa-footer-note{color:#8d98c2;font-size:11px;line-height:1.7}.reasa-footer-links{display:grid;gap:11px;color:#aeb7dc;font-size:11px}.reasa-footer-links strong{margin-bottom:4px;color:#f1f3ff;font-size:12px}.reasa-footer-links a:hover{color:#d6baff}.reasa-footer-note{display:grid;gap:16px}.reasa-footer-note small{font-size:10px}
+  @media(max-width:760px){
+  .reasa-header-inner{gap:12px}.reasa-desktop-hidden{display:none}.reasa-drawer{width:min(340px,86vw);padding-top:max(18px,env(safe-area-inset-top))}.reasa-hero{min-height:0;align-items:flex-end}.reasa-hero-inner{padding:54px 0 34px}.reasa-hero h1{font-size:clamp(35px,9.4vw,53px);line-height:1.03;overflow-wrap:anywhere}.reasa-eyebrow{font-size:9px;letter-spacing:.11em}.reasa-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.reasa-stat strong{font-size:20px}.reasa-stat span{font-size:9px}.reasa-section-head{align-items:flex-start}.reasa-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.reasa-category-card{min-height:155px;padding:13px}.reasa-category-card h3{font-size:13px;overflow-wrap:anywhere}.reasa-category-card p{font-size:11px}.reasa-category-card small{font-size:10px}.reasa-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.reasa-quiz-image{height:clamp(105px,28vw,145px)}.reasa-quiz-body{padding:12px}.reasa-quiz-body h3{font-size:13px;overflow-wrap:anywhere}.reasa-quiz-body p{font-size:11px}.reasa-card-meta{align-items:flex-start;flex-wrap:wrap;font-size:10px}.reasa-page-main{padding:24px 0 42px}.reasa-page-hero{padding:34px 0 28px}.reasa-quiz-progress-card{display:grid;grid-template-columns:auto 1fr auto;gap:9px}.reasa-progress-track{grid-column:1 / -1;grid-row:2}.reasa-live-timer{grid-column:3;grid-row:1}.reasa-quiz-wrap{width:calc(100% - 20px);padding-top:10px}.reasa-quiz-top{gap:8px}.reasa-quiz-top .reasa-logo{font-size:18px}.reasa-quiz-top-meta{display:none}.reasa-quiz-art{height:clamp(115px,35vw,165px)}.reasa-quiz-content{padding:17px 13px}.reasa-quiz-question{font-size:clamp(22px,6.1vw,29px);line-height:1.25;overflow-wrap:anywhere}.reasa-answer-grid{grid-template-columns:1fr}.reasa-answer-option{min-height:56px;font-size:14px;padding:11px}.reasa-quiz-bottom{font-size:10px}.reasa-result-card{padding:22px 15px;border-radius:19px}.reasa-search-form{flex-direction:column}.reasa-search-form button{width:100%;min-height:48px}.reasa-search-categories{grid-template-columns:1fr}.reasa-auth-page{padding:24px 13px 40px}.reasa-auth-card{border-radius:19px}.reasa-footer-layout{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}.reasa-footer-brand,.reasa-footer-note{grid-column:1/-1}.reasa-footer-note{gap:8px}.reasa-auth-actions{flex-direction:column}.reasa-challenge-band{padding:20px}.reasa-challenge-band .reasa-button{width:100%}
+  }
+  @media(max-width:380px){.reasa-shell,.reasa-hero-inner,.reasa-footer-inner{width:calc(100% - 22px)}.reasa-category-grid{gap:8px}.reasa-category-card{padding:10px;min-height:145px}.reasa-feature-grid{grid-template-columns:1fr}.reasa-quiz-image{height:165px}.reasa-header-inner{width:calc(100% - 22px)}.reasa-live-timer{font-size:11px;padding:6px 7px}.reasa-quiz-progress-card{padding:10px}.reasa-footer-layout{grid-template-columns:1fr 1fr}}
+  @media(hover:none){.reasa-category-card:hover,.reasa-quiz-card:hover{transform:none;box-shadow:none}.reasa-answer-option:hover:not(:disabled){transform:none}}
+  @media(prefers-reduced-motion:reduce){.reasa-drawer,.reasa-drawer-backdrop{transition:none!important}}
+
+  @media(max-width:900px){.reasa-nav,.reasa-header-actions{display:none}.reasa-mobile-toggle{display:grid}.reasa-header-inner{gap:12px}}
+
+  /* Admin content tools and profile stats; public site layout remains unchanged */
+  .reasa-admin-wrap{max-width:1100px;margin:40px auto 80px;padding:0 22px;color:var(--foreground,#f5f5ff)}
+  .reasa-admin-heading{margin-bottom:26px}.reasa-admin-heading h1{font-size:clamp(28px,4vw,42px);margin:10px 0}.reasa-admin-heading p{color:#aeb7dc;line-height:1.7}
+  .reasa-admin-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.reasa-admin-tabs button,.reasa-admin-item button,.reasa-admin-question-title button{border:1px solid var(--line,#293153);border-radius:10px;background:#0b1027;color:#e9eaff;padding:9px 12px;cursor:pointer}.reasa-admin-tabs button.active{background:#7737f5;border-color:#a477ff}
+  .reasa-admin-form{border:1px solid var(--line,#293153);border-radius:18px;padding:22px;background:rgba(15,21,49,.85);display:grid;gap:16px;margin-bottom:34px}.reasa-admin-form h2,.reasa-admin-wrap>h2{margin:0 0 4px}.reasa-admin-form label{display:grid;gap:7px;color:#b8c0e4;font-size:13px}.reasa-admin-form input:not([type=checkbox]):not([type=radio]),.reasa-admin-form select,.reasa-admin-form textarea{width:100%;min-width:0;border:1px solid var(--line,#293153);border-radius:10px;background:#080d21;color:#f3f4ff;padding:11px 12px;font:inherit}.reasa-admin-form textarea{min-height:75px;resize:vertical}.reasa-admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.reasa-admin-checks{display:flex;gap:18px;flex-wrap:wrap}.reasa-admin-checks label,.reasa-admin-form label span{display:flex;align-items:center;gap:8px}.reasa-admin-question{border:1px solid #333b60;border-radius:14px;padding:16px;display:grid;gap:14px}.reasa-admin-question-title{display:flex;justify-content:space-between;align-items:center;font-weight:700}.reasa-admin-preview{max-width:100%;width:auto;max-height:220px;object-fit:contain;border-radius:10px;border:1px solid var(--line,#293153)}.reasa-admin-list{display:grid;gap:12px;margin:18px 0 60px}.reasa-admin-item{display:flex;align-items:flex-start;gap:16px;padding:16px;border:1px solid var(--line,#293153);border-radius:14px;background:rgba(15,21,49,.75);min-width:0}.reasa-admin-item>img{width:90px;height:76px;object-fit:cover;border-radius:9px}.reasa-admin-item-main{flex:1;min-width:0;display:grid;gap:7px}.reasa-admin-item-main small{color:#aeb7dc;overflow-wrap:anywhere}.reasa-admin-item-actions{display:flex;flex-wrap:wrap;gap:7px;max-width:210px}.reasa-admin-item button.danger{color:#ff9caa;border-color:#793a52}.reasa-admin-existing-question{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-top:1px solid #252d4b;padding-top:8px}.reasa-admin-existing-question span{flex:1;min-width:140px;font-size:12px;color:#c9d0ed}.reasa-profile-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0}.reasa-profile-stats>div{display:grid;gap:7px;padding:16px 8px;text-align:center;background:#080d21;border:1px solid var(--line);border-radius:12px}.reasa-profile-stats strong{font-size:24px;color:#d8b4fe}.reasa-profile-stats span{font-size:11px;color:#aeb7dc}.reasa-profile-success{display:flex;gap:10px;padding:13px;border:1px solid #36d6a055;border-radius:12px;color:#7df0c8;margin-bottom:18px}.reasa-profile-nav-label{display:inline}.reasa-profile-card h2{margin-top:24px}
+  @media(max-width:650px){.reasa-admin-wrap{padding:0 14px;margin-top:24px}.reasa-admin-form{padding:15px}.reasa-admin-grid{grid-template-columns:minmax(0,1fr)}.reasa-admin-item{flex-wrap:wrap}.reasa-admin-item-actions{max-width:none;width:100%}.reasa-admin-item-actions button{flex:1}.reasa-profile-stats{gap:6px}.reasa-profile-stats>div{padding:12px 4px}.reasa-profile-stats strong{font-size:20px}}
+
+  /* REASA Admin Panel */
+  .reasa-admin-shell {
+    min-height: 100vh;
+    background: #f5f7fb;
+    color: #172033;
+  }
+
+  .reasa-admin-topbar {
+    height: 72px;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    border-bottom: 1px solid #e5e9f2;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+
+  .reasa-admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #172033;
+    font-size: 18px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .reasa-admin-brand small {
+    display: block;
+    margin-top: 3px;
+    color: #737e92;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+  }
+
+  .reasa-admin-brand-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    color: #fff;
+    background: linear-gradient(135deg, #6d5dfc, #3978ee);
+    font-size: 22px;
+  }
+
+  .reasa-admin-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .reasa-admin-view-site,
+  .reasa-admin-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: 1px solid #e0e5ef;
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: #344054;
+    background: #fff;
+    text-decoration: none;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .reasa-admin-body {
+    display: flex;
+    min-height: calc(100vh - 72px);
+  }
+
+  .reasa-admin-sidebar {
+    width: 250px;
+    flex: 0 0 250px;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-right: 1px solid #e5e9f2;
+  }
+
+  .reasa-admin-menu-label {
+    padding: 0 12px;
+    margin: 4px 0 14px;
+    color: #8a94a6;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+  }
+
+  .reasa-admin-menu {
+    display: grid;
+    gap: 6px;
+  }
+
+  .reasa-admin-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 46px;
+    padding: 0 13px;
+    border-radius: 10px;
+    color: #596579;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .reasa-admin-menu-link:hover {
+    color: #5145d9;
+    background: #f4f3ff;
+  }
+
+  .reasa-admin-menu-link.active {
+    color: #5145d9;
+    background: #eeecff;
+  }
+
+  .reasa-admin-sidebar-bottom {
+    margin-top: auto;
+    padding-top: 24px;
+  }
+
+  .reasa-admin-logout {
+    width: 100%;
+    color: #c03945;
+  }
+
+  .reasa-admin-logout:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .reasa-admin-content {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+  }
+
+  .reasa-admin-mobile-toggle,
+  .reasa-admin-mobile-overlay {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .reasa-admin-topbar {
+      height: 64px;
+      padding: 0 15px;
+    }
+
+    .reasa-admin-view-site {
+      padding: 9px;
+      font-size: 12px;
+    }
+
+    .reasa-admin-mobile-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #e0e5ef;
+      border-radius: 10px;
+      background: #fff;
+      color: #172033;
+    }
+
+    .reasa-admin-sidebar {
+      position: fixed;
+      top: 64px;
+      bottom: 0;
+      left: 0;
+      z-index: 60;
+      width: 270px;
+      transform: translateX(-100%);
+      transition: transform 0.2s ease;
+      overflow-y: auto;
+    }
+
+    .reasa-admin-sidebar.is-open {
+      transform: translateX(0);
+    }
+
+    .reasa-admin-mobile-overlay {
+      display: block;
+      position: fixed;
+      inset: 64px 0 0;
+      z-index: 50;
+      border: 0;
+      background: rgb(12 20 38 / 35%);
+    }
+
+    .reasa-admin-content {
+      padding: 20px 15px;
+    }
+  }
+
+
+
+  /* REASA Users Management */
+  .um-page {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 16px 24px 32px;
+    color: #172033;
+  }
+  .um-page .um-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 26px;
+  }
+  .um-page .um-eyebrow {
+    color: #6b63e8;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+  .um-page .um-heading h1 {
+    margin: 0;
+    font-size: 30px;
+    line-height: 1.3;
+    font-weight: 800;
+  }
+  .um-page .um-heading p,
+  .um-page .um-panel-heading p {
+    margin: 7px 0 0;
+    color: #778198;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .um-page .um-refresh,
+  .um-page .um-page-controls button {
+    border: 1px solid #dfe4ed;
+    border-radius: 9px;
+    background: #fff;
+    color: #34415a;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .um-page .um-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 25px;
+  }
+  .um-page .um-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 21px;
+    background: #fff;
+    border: 1px solid #e6eaf2;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px #1b274b09;
+  }
+  .um-page .um-stat-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    background: #f0efff;
+    font-size: 21px;
+  }
+  .um-page .um-stat-label {
+    color: #788299;
+    font-size: 12px;
+  }
+  .um-page .um-stat strong {
+    margin-top: 7px;
+    font-size: 28px;
+    line-height: 1.3;
+  }
+  .um-page .um-stat small {
+    margin-top: 6px;
+    color: #8a93a6;
+    font-size: 11px;
+  }
+  .um-page .um-panel {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e4e8f0;
+    border-radius: 16px;
+    box-shadow: 0 3px 14px #1b274b09;
+  }
+  .um-page .um-panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 24px;
+  }
+  .um-page .um-panel-heading h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+  .um-page .um-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid #e4e9f0;
+    border-radius: 30px;
+    color: #56647b;
+    font-size: 11px;
+  }
+  .um-page .um-live span {
+    width: 8px;
+    height: 8px;
+    background: #20b77a;
+    border-radius: 50%;
+  }
+  .um-page .um-toolbar {
+    display: flex;
+    gap: 12px;
+    padding: 0 24px 20px;
+  }
+  .um-page .um-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    padding: 0 13px;
+    border: 1px solid #dfe4ed;
+    border-radius: 10px;
+    background: #fff;
+  }
+  .um-page .um-search input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: #202b41;
+    font-size: 13px;
+  }
+  .um-page .um-search button {
+    border: 0;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .um-page .um-toolbar select {
+    width: 185px;
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid #dfe4ed;
+    border-radius: 10px;
+    background: #fff;
+    color: #34415a;
+    font-size: 13px;
+  }
+  .um-page .um-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .um-page .um-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  .um-page .um-table thead {
+    background: #f7f8fc;
+  }
+  .um-page .um-table th {
+    padding: 15px 20px;
+    color: #7a859a;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .7px;
+    white-space: nowrap;
+  }
+  .um-page .um-table td {
+    padding: 16px 20px;
+    border-top: 1px solid #edf0f5;
+    color: #26334a;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+  .um-page .um-table tbody tr:hover {
+    background: #fafbff;
+  }
+  .um-page .um-user {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 235px;
+  }
+  .um-page .um-avatar {
+    display: block;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    object-fit: cover;
+  }
+  .um-page .um-avatar-fallback {
+    display: grid;
+    place-items: center;
+    background: #efeeff;
+    color: #655be8;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .um-page .um-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    min-width: 0;
+  }
+  .um-page .um-user-info strong {
+    font-size: 13px;
+    font-weight: 750;
+  }
+  .um-page .um-user-info span,
+  .um-page .um-user-info small {
+    color: #78849a;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+  }
+  .um-page .um-user-info small {
+    font-size: 10px;
+  }
+  .um-page .um-role {
+    display: inline-flex;
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 800;
+  }
+  .um-page .um-role-user {
+    color: #3476ca;
+    background: #eaf3ff;
+  }
+  .um-page .um-role-admin {
+    color: #9250bd;
+    background: #f3e9ff;
+  }
+  .um-page .um-role-editor {
+    color: #a96a12;
+    background: #fff2d8;
+  }
+  .um-page .um-number {
+    font-size: 14px;
+  }
+  .um-page .um-date {
+    color: #68758b;
+    white-space: nowrap;
+  }
+  .um-page .um-message {
+    padding: 40px 20px;
+    text-align: center;
+    color: #778198;
+  }
+  .um-page .um-message p {
+    margin: 7px 0 0;
+    font-size: 12px;
+  }
+  .um-page .um-empty-icon {
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+  .um-page .um-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 24px;
+    border-top: 1px solid #edf0f5;
+    color: #7b869a;
+    font-size: 12px;
+  }
+  .um-page .um-page-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .um-page .um-page-controls span {
+    white-space: nowrap;
+  }
+  .um-page .um-footer-note {
+    margin-top: 17px;
+    color: #8a93a4;
+    text-align: center;
+    font-size: 11px;
+  }
+  .um-page .um-error {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 16px;
+    border: 1px solid #f0caca;
+    border-radius: 12px;
+    background: #fff6f6;
+    color: #8b2525;
+  }
+  .um-page .um-error p {
+    margin-top: 6px;
+    font-size: 12px;
+  }
+  .um-page .um-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 9px;
+    border: 2px solid #dedcff;
+    border-top-color: #6b63e8;
+    border-radius: 50%;
+    vertical-align: middle;
+    animation: um-spin .8s linear infinite;
+  }
+  @keyframes um-spin {
+    to { transform: rotate(360deg); }
+  }
+  @media (max-width: 1000px) {
+    .um-page .um-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 600px) {
+    .um-page {
+      padding: 12px;
+    }
+  .um-page .um-heading h1 {
+      font-size: 24px;
+    }
+  .um-page .um-stats {
+      gap: 10px;
+    }
+  .um-page .um-stat {
+      padding: 14px;
+    }
+  .um-page .um-toolbar {
+      flex-direction: column;
+      padding: 0 14px 16px;
+    }
+  .um-page .um-toolbar select {
+      width: 100%;
+    }
+  .um-page .um-panel-heading {
+      padding: 18px 14px;
+    }
+  .um-page .um-pagination {
+      align-items: flex-start;
+      flex-direction: column;
+      padding: 16px 14px;
+    }
+  .um-page .um-page-controls {
+      width: 100%;
+      justify-content: space-between;
+      gap: 6px;
+    }
+  .um-page .um-page-controls button {
+      padding: 8px;
+    }
+  }
+
+
+  .ra-qm-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+    color: var(--foreground, #172033);
+  }
+
+  .ra-qm-top {
+    margin-bottom: 24px;
+  }
+
+  .ra-qm-top h1 {
+    margin: 12px 0 6px;
+    font-size: clamp(26px, 4vw, 36px);
+  }
+
+  .ra-qm-top p,
+  .ra-qm-muted {
+    color: #737b8c;
+  }
+
+  .ra-qm-back {
+    color: #6254e8;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .ra-qm-count {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 11px;
+    border-radius: 20px;
+    background: #eeecff;
+    color: #5043cc;
+    font-size: 13px;
+  }
+
+  .ra-qm-card {
+    margin: 20px 0;
+    padding: 24px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: var(--card, #fff);
+    box-shadow: 0 5px 20px rgb(20 30 60 / 4%);
+  }
+
+  .ra-qm-card h2 {
+    margin: 0 0 16px;
+    font-size: 21px;
+  }
+
+  .ra-qm-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .ra-qm-question {
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .ra-qm-question-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .ra-qm-question ol {
+    padding-left: 24px;
+    line-height: 1.9;
+  }
+
+  .ra-qm-label {
+    display: grid;
+    gap: 8px;
+    margin: 18px 0;
+    font-weight: 600;
+  }
+
+  .ra-qm-label input,
+  .ra-qm-label textarea,
+  .ra-qm-option > input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #d8dce5;
+    border-radius: 9px;
+    background: var(--background, #fff);
+    color: inherit;
+    font: inherit;
+  }
+
+  .ra-qm-label input:focus,
+  .ra-qm-label textarea:focus,
+  .ra-qm-option > input:focus {
+    outline: 2px solid #b8b0ff;
+    border-color: #6254e8;
+  }
+
+  .ra-qm-options-title {
+    display: grid;
+    gap: 5px;
+    margin-top: 24px;
+  }
+
+  .ra-qm-options-title span {
+    color: #737b8c;
+    font-size: 13px;
+  }
+
+  .ra-qm-options {
+    display: grid;
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .ra-qm-option {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) 85px;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ra-qm-radio {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .ra-qm-radio input {
+    accent-color: #6254e8;
+  }
+
+  .ra-qm-radio span {
+    font-weight: 700;
+  }
+
+  .ra-qm-correct {
+    color: #16834a;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .ra-qm-delete,
+  .ra-qm-confirm button {
+    padding: 8px 12px;
+    border: 1px solid #f1b8b8;
+    border-radius: 8px;
+    background: #fff5f5;
+    color: #b42318;
+    cursor: pointer;
+  }
+
+  .ra-qm-confirm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #fff8ed;
+  }
+
+  .ra-qm-confirm button:last-child {
+    border-color: #d8dce5;
+    background: #fff;
+    color: #374151;
+  }
+
+  .ra-qm-submit {
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 9px;
+    background: #6254e8;
+    color: white;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .ra-qm-submit:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  .ra-qm-alert {
+    margin: 16px 0;
+    padding: 12px 15px;
+    border-radius: 9px;
+  }
+
+  .ra-qm-error {
+    background: #fff0f0;
+    color: #b42318;
+  }
+
+  .ra-qm-success {
+    background: #eafaf0;
+    color: #167342;
+  }
+
+  @media (max-width: 600px) {
+    .ra-qm-page {
+      padding: 20px 12px 40px;
+    }
+
+    .ra-qm-card {
+      padding: 16px;
+    }
+
+    .ra-qm-option {
+      grid-template-columns: 42px minmax(0, 1fr);
+    }
+
+    .ra-qm-option > span {
+      grid-column: 2;
+    }
+  }
+
+
+
+  /* =========================================
+    REASA PROFILE — RESPONSIVE MOBILE DESIGN
+    ========================================= */
+
+
+  /* =========================================
+    REASA PROFILE PAGE — RESPONSIVE STYLES
+    ========================================= */
+
+  .reasa-auth-page:has(.reasa-profile-card) {
+    display: block;
+    width: 100%;
+    min-height: calc(100vh - 72px);
+    min-height: calc(100svh - 72px);
+    padding: 36px 20px 64px;
+  }
+
+  .reasa-profile-card {
+    width: 100%;
+    max-width: 1000px !important;
+    margin: 0 auto;
+    padding: clamp(20px, 3vw, 34px);
+    overflow: hidden;
+    border-radius: 24px;
+    box-sizing: border-box;
+  }
+
+  .reasa-profile-card *,
+  .reasa-profile-card *::before,
+  .reasa-profile-card *::after {
+    box-sizing: border-box;
+  }
+
+  .reasa-profile-card h1,
+  .reasa-profile-card h2,
+  .reasa-profile-card p,
+  .reasa-profile-card strong {
+    overflow-wrap: anywhere;
+  }
+
+  .reasa-profile-card h2 {
+    margin-top: 28px;
+    margin-bottom: 12px;
+    font-size: clamp(19px, 2.5vw, 24px);
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+  }
+
+  /* Account information */
+
+  .reasa-profile-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .reasa-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(8, 13, 33, 0.8);
+  }
+
+  .reasa-profile-row > svg {
+    flex: 0 0 20px;
+    width: 20px;
+    color: #c4a5ff;
+  }
+
+  .reasa-profile-row > div {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .reasa-profile-row small {
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .reasa-profile-row strong {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .reasa-profile-active {
+    color: var(--green);
+  }
+
+  /* Level and XP */
+
+  .reasa-profile-level {
+    margin: 24px 0;
+    padding: clamp(18px, 3vw, 26px);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: linear-gradient(145deg, #111735, #090e25);
+  }
+
+  .reasa-profile-level-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .reasa-profile-level-heading h2 {
+    margin: 8px 0 0;
+  }
+
+  .reasa-profile-level-icon {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    color: #c4a5ff;
+    background: rgba(196, 165, 255, 0.1);
+  }
+
+  .reasa-profile-xp-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0 10px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .reasa-profile-xp-row > span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .reasa-profile-xp-row svg {
+    color: #c4a5ff;
+  }
+
+  .reasa-profile-progress-track {
+    width: 100%;
+    height: 9px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .reasa-profile-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #8b5cf6, #c4a5ff);
+    transition: width 0.3s ease;
+  }
+
+  .reasa-profile-level-note {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* Quiz statistics */
+
+  .reasa-profile-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin: 18px 0 28px;
+  }
+
+  .reasa-profile-stats > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: linear-gradient(145deg, #111735, #090e25);
+    text-align: left;
+  }
+
+  .reasa-profile-stats > div > svg {
+    flex: 0 0 auto;
+    color: #c4a5ff;
+  }
+
+  .reasa-profile-stats strong {
+    font-size: clamp(23px, 3vw, 30px);
+    line-height: 1.2;
+  }
+
+  .reasa-profile-stats span {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* Section headings */
+
+  .reasa-profile-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin: 30px 0 16px;
+  }
+
+  .reasa-profile-section-heading h2 {
+    margin: 0 0 6px;
+  }
+
+  .reasa-profile-section-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .reasa-profile-badge-count {
+    flex: 0 0 auto;
+    padding: 7px 11px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    color: #c4a5ff;
+    font-size: 12px;
+  }
+
+  /* Achievements */
+
+  .reasa-profile-badges {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .reasa-profile-badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    background: rgba(8, 13, 33, 0.8);
+  }
+
+  .reasa-profile-badge.is-locked {
+    opacity: 0.65;
+  }
+
+  .reasa-profile-badge.is-earned {
+    border-color: rgba(196, 165, 255, 0.35);
+  }
+
+  .reasa-profile-badge-icon {
+    display: grid;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 12px;
+    color: #c4a5ff;
+    background: rgba(196, 165, 255, 0.1);
+  }
+
+  .reasa-profile-badge > div:last-child {
+    min-width: 0;
+  }
+
+  .reasa-profile-badge strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .reasa-profile-badge p {
+    margin: 5px 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .reasa-profile-badge small {
+    color: #c4a5ff;
+    font-size: 11px;
+  }
+
+  /* Recent quiz history */
+
+  .reasa-profile-history {
+    display: grid;
+    gap: 10px;
+  }
+
+  .reasa-profile-history-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    background: rgba(8, 13, 33, 0.8);
+  }
+
+  .reasa-profile-history-icon {
+    display: grid;
+    flex: 0 0 56px;
+    width: 56px;
+    height: 56px;
+    place-items: center;
+    border-radius: 13px;
+    color: #c4a5ff;
+    background: rgba(99, 102, 241, 0.15);
+  }
+
+  .reasa-profile-history-content {
+    display: grid;
+    flex: 1;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .reasa-profile-history-content strong {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .reasa-profile-history-content span {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  .reasa-profile-history-link {
+    display: grid;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    color: #c4a5ff;
+    text-decoration: none;
+  }
+
+  .reasa-profile-history-link:hover {
+    background: rgba(196, 165, 255, 0.1);
+  }
+
+  .reasa-profile-empty {
+    padding: 22px;
+    border: 1px dashed var(--line);
+    border-radius: 15px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  .reasa-profile-empty svg {
+    margin: 0 auto 10px;
+    color: #c4a5ff;
+  }
+
+  /* Invite friends */
+
+  .reasa-profile-invite {
+    margin-top: 28px;
+    padding: clamp(18px, 3vw, 24px);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: rgba(8, 13, 33, 0.72);
+  }
+
+  .reasa-profile-invite h2 {
+    margin-top: 0;
+  }
+
+  .reasa-profile-invite input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 46px;
+    margin-top: 14px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    outline: none;
+    background: #070b20;
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .reasa-profile-invite input:focus {
+    border-color: var(--purple);
+  }
+
+  .reasa-profile-invite .reasa-auth-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .reasa-profile-invite .reasa-auth-actions .reasa-button {
+    flex: 1 1 150px;
+    min-height: 46px;
+  }
+
+  /* Messages and action buttons */
+
+  .reasa-profile-success {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  .reasa-profile-message {
+    margin: 16px 0;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .reasa-profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .reasa-profile-explore {
+    display: flex;
+    flex: 1 1 180px;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-height: 46px;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .reasa-profile-card .reasa-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    margin-top: 0;
+    padding: 10px 14px;
+    cursor: pointer;
+  }
+
+  .reasa-profile-card button,
+  .reasa-profile-card a {
+    touch-action: manipulation;
+  }
+
+  /* Tablet */
+
+  @media (max-width: 800px) {
+    .reasa-auth-page:has(.reasa-profile-card) {
+      padding: 26px 16px 44px;
+    }
+
+    .reasa-profile-details {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .reasa-profile-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .reasa-profile-badges {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* Mobile */
+
+  @media (max-width: 520px) {
+    .reasa-auth-page:has(.reasa-profile-card) {
+      padding: 18px 10px 32px;
+    }
+
+    .reasa-profile-card {
+      padding: 19px 14px;
+      border-radius: 18px;
+    }
+
+    .reasa-profile-details {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 9px;
+      margin: 18px 0;
+    }
+
+    .reasa-profile-row {
+      padding: 13px;
+    }
+
+    .reasa-profile-level {
+      padding: 16px;
+    }
+
+    .reasa-profile-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .reasa-profile-stats > div {
+      padding: 14px 11px;
+      gap: 8px;
+    }
+
+    .reasa-profile-stats strong {
+      font-size: 24px;
+    }
+
+    .reasa-profile-stats span {
+      font-size: 11px;
+    }
+
+    .reasa-profile-section-heading {
+      align-items: flex-start;
+    }
+
+    .reasa-profile-badge {
+      padding: 13px;
+    }
+
+    .reasa-profile-history-item {
+      gap: 10px;
+      padding: 11px;
+    }
+
+    .reasa-profile-history-icon {
+      flex-basis: 44px;
+      width: 44px;
+      height: 44px;
+    }
+
+    .reasa-profile-history-content strong {
+      font-size: 13px;
+    }
+
+    .reasa-profile-history-content span {
+      font-size: 11px;
+    }
+
+    .reasa-profile-history-link {
+      flex-basis: 32px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .reasa-profile-invite .reasa-auth-actions {
+      flex-direction: column;
+    }
+
+    .reasa-profile-invite .reasa-auth-actions .reasa-button {
+      width: 100%;
+      flex-basis: auto;
+    }
+
+    .reasa-profile-actions {
+      flex-direction: column;
+    }
+
+    .reasa-profile-explore {
+      width: 100%;
+      flex-basis: auto;
+    }
+
+    .reasa-profile-card .reasa-logout {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reasa-profile-card *,
+    .reasa-profile-card *::before,
+    .reasa-profile-card *::after {
+      scroll-behavior: auto;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+
+  
+/* =========================================
+   REASA DASHBOARD - CONTENT ONLY
+   ========================================= */
+
+.reasa-dashboard {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 28px;
+  display: grid;
+  gap: 24px;
+  color: #172033;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+.reasa-dashboard *,
+.reasa-dashboard *::before,
+.reasa-dashboard *::after {
+  box-sizing: border-box;
+}
+
+.reasa-dashboard .dashboard-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.reasa-dashboard .eyebrow {
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.reasa-dashboard h1 {
+  margin: 8px 0;
+  color: #111827;
+  font-size: 32px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+
+.reasa-dashboard .subtitle {
+  margin: 0;
+  color: #718096;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.reasa-dashboard .refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 17px;
+  background: #fff;
+  color: #344054;
+  border: 1px solid #dce3ee;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.reasa-dashboard .refresh:hover {
+  background: #f8faff;
+  border-color: #a8b9f9;
+}
+
+.reasa-dashboard .refresh:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.reasa-dashboard .error {
+  padding: 16px;
+  background: #fff1f0;
+  color: #a32e26;
+  border: 1px solid #ffd5d1;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.reasa-dashboard .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.reasa-dashboard .stat-card {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+  background: #fff;
+  border: 1px solid #e8edf5;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(26, 42, 70, 0.045);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reasa-dashboard .stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 24px rgba(26, 42, 70, 0.08);
+}
+
+.reasa-dashboard .stat-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  font-size: 22px;
+}
+
+.reasa-dashboard .stat-icon.blue {
+  background: #eaf2ff;
+}
+
+.reasa-dashboard .stat-icon.purple {
+  background: #f0eaff;
+}
+
+.reasa-dashboard .stat-icon.green {
+  background: #e5f8ee;
+}
+
+.reasa-dashboard .stat-icon.orange {
+  background: #fff1df;
+}
+
+.reasa-dashboard .stat-icon.pink {
+  background: #ffeaf1;
+}
+
+.reasa-dashboard .stat-icon.cyan {
+  background: #e2f8fb;
+}
+
+.reasa-dashboard .stat-label {
+  margin: 0 0 8px;
+  color: #718096;
+  font-size: 13px;
+}
+
+.reasa-dashboard .stat-value {
+  display: block;
+  color: #111827;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.reasa-dashboard .content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 20px;
+}
+
+.reasa-dashboard .panel {
+  min-width: 0;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e8edf5;
+  border-radius: 17px;
+  box-shadow: 0 4px 16px rgba(26, 42, 70, 0.035);
+}
+
+.reasa-dashboard .panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.reasa-dashboard .panel-heading h2 {
+  margin: 0 0 7px;
+  color: #172033;
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 800;
+}
+
+.reasa-dashboard .panel-heading p {
+  margin: 0;
+  color: #7a8699;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.reasa-dashboard .panel-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  background: #f0f4fa;
+  border-radius: 13px;
+  font-size: 19px;
+}
+
+.reasa-dashboard .chart {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.reasa-dashboard .chart-day {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto 135px auto;
+  gap: 9px;
+  text-align: center;
+  align-items: end;
+}
+
+.reasa-dashboard .chart-number {
+  color: #53637b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.reasa-dashboard .bar-area {
+  height: 135px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: #f3f6fb;
+  border-radius: 9px;
+}
+
+.reasa-dashboard .bar {
+  width: 100%;
+  min-height: 3px;
+  background: linear-gradient(180deg, #8498ff 0%, #526fe7 100%);
+  border-radius: 7px 7px 0 0;
+}
+
+.reasa-dashboard .day-label {
+  color: #7a8699;
+  font-size: 11px;
+}
+
+.reasa-dashboard .legend {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  color: #718096;
+  font-size: 12px;
+}
+
+.reasa-dashboard .legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: #5878e9;
+}
+
+.reasa-dashboard .performance {
+  display: grid;
+  gap: 23px;
+}
+
+.reasa-dashboard .performance-row {
+  display: grid;
+  gap: 11px;
+}
+
+.reasa-dashboard .performance-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: #69778c;
+  font-size: 13px;
+}
+
+.reasa-dashboard .performance-labels strong {
+  color: #172033;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.reasa-dashboard .progress {
+  height: 9px;
+  overflow: hidden;
+  background: #edf1f7;
+  border-radius: 20px;
+}
+
+.reasa-dashboard .progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #20b77a, #119761);
+  border-radius: inherit;
+}
+
+.reasa-dashboard .progress span.purple-bar {
+  background: linear-gradient(90deg, #a18af7, #7657df);
+}
+
+.reasa-dashboard .metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 15px;
+  border-top: 1px solid #edf0f5;
+  color: #69778c;
+  font-size: 13px;
+}
+
+.reasa-dashboard .metric strong {
+  color: #172033;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.reasa-dashboard .text-link {
+  color: #4568df;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.reasa-dashboard .text-link:hover {
+  text-decoration: underline;
+}
+
+.reasa-dashboard .table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.reasa-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.reasa-dashboard th {
+  padding: 14px 12px;
+  background: #f7f9fc;
+  color: #7a8699;
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.reasa-dashboard td {
+  padding: 15px 12px;
+  color: #344054;
+  border-bottom: 1px solid #edf0f5;
+  font-size: 13px;
+}
+
+.reasa-dashboard td:last-child,
+.reasa-dashboard th:last-child {
+  text-align: right;
+}
+
+.reasa-dashboard .rank {
+  width: 29px;
+  height: 29px;
+  display: inline-grid;
+  place-items: center;
+  margin-right: 10px;
+  border-radius: 9px;
+  background: #eef2ff;
+  color: #4568df;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.reasa-dashboard .quiz-title {
+  overflow-wrap: anywhere;
+}
+
+.reasa-dashboard .empty,
+.reasa-dashboard .loading {
+  padding: 18px 0;
+  color: #7a8699;
+  font-size: 13px;
+}
+
+.reasa-dashboard .actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.reasa-dashboard .action {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 17px;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #e7ebf2;
+  border-radius: 13px;
+  background: #fff;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.reasa-dashboard .action:hover {
+  background: #fafbff;
+  border-color: #b8c6fa;
+  transform: translateY(-2px);
+}
+
+.reasa-dashboard .action-icon {
+  font-size: 23px;
+}
+
+.reasa-dashboard .action-text {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.reasa-dashboard .action-text strong {
+  color: #253047;
+  font-size: 12px;
+}
+
+.reasa-dashboard .action-text small {
+  color: #7a8699;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.reasa-dashboard .action-arrow {
+  color: #6076d8;
+}
+
+/* Tablet */
+@media (max-width: 1050px) {
+  .reasa-dashboard {
+    padding: 22px;
+  }
+
+  .reasa-dashboard .content-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reasa-dashboard .actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .reasa-dashboard {
+    padding: 16px;
+    gap: 17px;
+  }
+
+  .reasa-dashboard h1 {
+    font-size: 26px;
+  }
+
+  .reasa-dashboard .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+  }
+
+  .reasa-dashboard .stat-card {
+    padding: 14px;
+    gap: 10px;
+    border-radius: 13px;
+  }
+
+  .reasa-dashboard .stat-icon {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    font-size: 17px;
+    border-radius: 10px;
+  }
+
+  .reasa-dashboard .stat-label {
+    font-size: 11px;
+  }
+
+  .reasa-dashboard .stat-value {
+    font-size: 22px;
+  }
+
+  .reasa-dashboard .panel {
+    padding: 17px;
+    border-radius: 14px;
+  }
+
+  .reasa-dashboard .panel-heading {
+    margin-bottom: 18px;
+  }
+
+  .reasa-dashboard .chart {
+    gap: 6px;
+  }
+
+  .reasa-dashboard .chart-day {
+    grid-template-rows: auto 105px auto;
+    gap: 7px;
+  }
+
+  .reasa-dashboard .bar-area {
+    height: 105px;
+  }
+
+  .reasa-dashboard .day-label {
+    font-size: 10px;
+  }
+
+  .reasa-dashboard .action {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .reasa-dashboard {
+    padding: 11px;
+  }
+
+  .reasa-dashboard .stat-card {
+    padding: 10px;
+    gap: 7px;
+  }
+
+  .reasa-dashboard .stat-icon {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+    font-size: 15px;
+  }
+
+  .reasa-dashboard .stat-value {
+    font-size: 19px;
+  }
+}

@@ -1,11 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BrainCircuit, Menu, Search, X, Trophy, LayoutGrid, House, CalendarDays, Info, UserRound, ChevronRight, Share2 } from "lucide-react";
+import { BrainCircuit, Menu, Search, X, Trophy, LayoutGrid, House, CalendarDays, Info, UserRound, ChevronRight, Share2,   Smartphone} from "lucide-react";
 const links = [
   { name: "Home", href: "/", icon: House }, { name: "Categories", href: "/categories", icon: LayoutGrid },
   { name: "Daily Challenge", href: "/daily-challenge", icon: CalendarDays }, { name: "Leaderboard", href: "/leaderboard", icon: Trophy },
-  { name: "About REASA", href: "/about", icon: Info }, { name: "Invite friends", href: "/referral", icon: Share2 },
+  { name: "About REASA", href: "/about", icon: Info }, { name: "Invite friends", href: "/referral", icon: Share2 }, { name: "Get App", href: "/download-app", icon: Smartphone },
 ];
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);

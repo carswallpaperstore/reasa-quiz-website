@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
@@ -6,31 +7,35 @@ import { readSessionToken, SESSION_COOKIE } from "@/lib/auth";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const token = (await cookies()).get(SESSION_COOKIE)?.value;
-    const session = readSessionToken(token);
 
-    const puzzleId = body.puzzleId;
-    const answers = body.answers;
-    const durationSeconds = Number.isFinite(Number(body.elapsedSeconds)) ? Math.max(0, Math.min(86400, Math.floor(Number(body.elapsedSeconds)))) : null;
+    const puzzleId = body?.puzzleId;
+    const answers = body?.answers;
 
-    if (typeof puzzleId !== "string" || !answers || typeof answers !== "object" || Array.isArray(answers)) {
+    const durationValue = Number(body?.elapsedSeconds);
+    const durationSeconds = Number.isFinite(durationValue)
+      ? Math.max(0, Math.min(86400, Math.floor(durationValue)))
+      : null;
+
+    if (
+      typeof puzzleId !== "string" ||
+      !answers ||
+      typeof answers !== "object" ||
+      Array.isArray(answers)
+    ) {
       return NextResponse.json(
-        {
-          error: "Puzzle ID and answers are required.",
-        },
+        { error: "Puzzle ID and answers are required." },
         { status: 400 }
       );
     }
 
-
     const puzzle = await prisma.puzzle.findUnique({
-      where: {
-        id: puzzleId,
-      },
+      where: { id: puzzleId },
       select: {
         id: true,
         published: true,
         questions: {
+          where: { type: "MULTIPLE_CHOICE" },
+          orderBy: { sortOrder: "asc" },
           select: {
             id: true,
             points: true,
@@ -45,13 +50,17 @@ export async function POST(request: Request) {
       },
     });
 
-
     if (!puzzle || !puzzle.published) {
       return NextResponse.json(
-        {
-          error: "Puzzle not found.",
-        },
+        { error: "Puzzle not found." },
         { status: 404 }
+      );
+    }
+
+    if (puzzle.questions.length === 0) {
+      return NextResponse.json(
+        { error: "This quiz has no multiple-choice questions." },
+        { status: 400 }
       );
     }
 
@@ -65,13 +74,28 @@ export async function POST(request: Request) {
 
       const selectedOptionId = answers[question.id];
 
-      const correctOption = question.options.find(
-        (option) => option.isCorrect
+      // Every displayed question must have a valid selected option.
+      if (typeof selectedOptionId !== "string") {
+        return NextResponse.json(
+          { error: "Please answer every question before viewing your result." },
+          { status: 400 }
+        );
+      }
+
+      // Confirm the selected option belongs to this exact question.
+      const selectedOption = question.options.find(
+        (option) => option.id === selectedOptionId
       );
 
-      const isCorrect =
-        !!selectedOptionId &&
-        selectedOptionId === correctOption?.id;
+      if (!selectedOption) {
+        return NextResponse.json(
+          { error: "An invalid answer was submitted. Please try again." },
+          { status: 400 }
+        );
+      }
+
+      // The server database is the source of truth for correctness.
+      const isCorrect = selectedOption.isCorrect;
 
       if (isCorrect) {
         score += question.points;
@@ -79,7 +103,7 @@ export async function POST(request: Request) {
 
       answerRecords.push({
         questionId: question.id,
-        optionId: selectedOptionId || null,
+        optionId: selectedOption.id,
         isCorrect,
         points: isCorrect ? question.points : 0,
       });
@@ -87,9 +111,13 @@ export async function POST(request: Request) {
 
     const percentage =
       totalPoints > 0
-        ? (score / totalPoints) * 100
+        ? Math.round((score / totalPoints) * 10000) / 100
         : 0;
 
+    const token = (await cookies()).get(SESSION_COOKIE)?.value;
+    const session = readSessionToken(token);
+
+    // Save the attempt and all question answers together.
     const attempt = await prisma.attempt.create({
       data: {
         userId: session?.userId ?? null,
@@ -104,22 +132,26 @@ export async function POST(request: Request) {
           create: answerRecords,
         },
       },
+      select: {
+        id: true,
+        score: true,
+        totalPoints: true,
+        percentage: true,
+      },
     });
 
     return NextResponse.json({
       success: true,
       attemptId: attempt.id,
-      score,
-      totalPoints,
-      percentage,
+      score: attempt.score,
+      totalPoints: attempt.totalPoints,
+      percentage: attempt.percentage,
     });
   } catch (error) {
     console.error("Attempt submission error:", error);
 
     return NextResponse.json(
-      {
-        error: "Failed to submit challenge.",
-      },
+      { error: "Failed to submit challenge." },
       { status: 500 }
     );
   }

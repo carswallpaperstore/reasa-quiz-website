@@ -1,21 +1,61 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
-import { ArrowRight, Flame, Gamepad2, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Flame, Gamepad2, Sparkles, Zap, BrainCircuit } from "lucide-react";
 import CategoryIcon from "@/components/CategoryIcon";
 import Header from "@/components/Header";
 import QuizGrid from "@/components/QuizGrid";
 import { prisma } from "@/lib/prisma";
-export const revalidate = 60;
+export const revalidate = 300;
 
 export default async function HomePage() {
-  const [categories, featured, trending, latest] = await Promise.all([
-    prisma.category.findMany({ where: { isActive: true }, orderBy: { sortOrder: "asc" }, take: 12, include: { _count: { select: { puzzles: { where: { published: true } } } } } }),
-    prisma.puzzle.findMany({ where: { published: true, featured: true }, orderBy: { createdAt: "desc" }, take: 6, include: { category: true } }),
-    prisma.puzzle.findMany({ where: { published: true, trending: true }, orderBy: { createdAt: "desc" }, take: 6, include: { category: true } }),
-    prisma.puzzle.findMany({ where: { published: true }, orderBy: { createdAt: "desc" }, take: 6, include: { category: true } }),
-  ]);
+  let categories;
+  let featured;
+  let trending;
+  let latest;
+
+  try {
+    [categories, featured, trending, latest] = await Promise.all([
+      prisma.category.findMany({
+        where: { isActive: true },
+        orderBy: { sortOrder: "asc" },
+        take: 12,
+        include: {
+          _count: {
+            select: {
+              puzzles: { where: { published: true } },
+            },
+          },
+        },
+      }),
+      prisma.puzzle.findMany({
+        where: { published: true, featured: true },
+        orderBy: { createdAt: "desc" },
+        take: 6,
+        include: { category: true },
+      }),
+      prisma.puzzle.findMany({
+        where: { published: true, trending: true },
+        orderBy: { createdAt: "desc" },
+        take: 6,
+        include: { category: true },
+      }),
+      prisma.puzzle.findMany({
+        where: { published: true },
+        orderBy: { createdAt: "desc" },
+        take: 6,
+        include: { category: true },
+      }),
+    ]);
+  } catch (error) {
+    console.error("Homepage database error:", error);
+    throw error;
+  }
+
   const shown = featured.length ? featured : latest;
-  const totalPuzzles = categories.reduce((sum, item) => sum + item._count.puzzles, 0);
+  const totalPuzzles = categories.reduce(
+    (sum, item) => sum + item._count.puzzles,
+    0
+  );
 
   return <>
     <Header />
@@ -49,6 +89,29 @@ export default async function HomePage() {
             })}
           </div>
         </section>
+
+        
+<section className="reasa-app-promo">
+  <div className="reasa-app-promo-icon">
+    <BrainCircuit size={32} />
+  </div>
+
+  <div className="reasa-app-promo-copy">
+    <span>MEET REASA FOR ANDROID</span>
+    <h2>Your next brain challenge is one tap away.</h2>
+    <p>
+      Download the REASA app and take your quizzes with you.
+    </p>
+  </div>
+
+  <Link
+    href="/download-app"
+    className="reasa-app-promo-button"
+  >
+    Get the App <ArrowRight size={17} />
+  </Link>
+</section>
+
 
         <section className="reasa-section">
           <div className="reasa-section-head"><div><div className="reasa-section-kicker">Hand-picked for curious minds</div><h2 className="reasa-section-title">Featured Quizzes</h2><p className="reasa-section-desc">A few good reasons to take a break and think.</p></div><Link className="reasa-text-link" href="/categories">View all <ArrowRight size={14} /></Link></div>

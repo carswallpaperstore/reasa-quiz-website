@@ -229,18 +229,20 @@ export default function ProfilePanel() {
       : `${remainingSeconds}s`;
   }
 
-  if (loading) {
-    return (
-      <section className="reasa-auth-card reasa-profile-card">
-        <LoaderCircle
-          size={28}
-          className="animate-spin"
-          aria-hidden="true"
-        />
-        <p>Loading your REASA profile...</p>
-      </section>
-    );
-  }
+
+if (loading) {
+  return (
+    <section className="reasa-auth-card reasa-profile-card">
+      <LoaderCircle
+        size={28}
+        className="animate-spin"
+        aria-hidden="true"
+      />
+      <p>Loading your REASA profile...</p>
+    </section>
+  );
+} 
+
 
   if (!user) {
     return (

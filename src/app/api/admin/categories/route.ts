@@ -244,6 +244,9 @@ export async function DELETE(request: Request) {
       await tx.category.delete({
         where: { id },
       });
+        }, {
+      timeout: 20000,
+      maxWait: 10000,
     });
 
     return NextResponse.json({

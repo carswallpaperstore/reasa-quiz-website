@@ -30,14 +30,17 @@ export default async function CategoryPage({
   }
 
   // Admin Settings मधून एका category मध्ये किती quizzes दाखवायचे ते मिळवा.
-  const quizLimitSetting = await prisma.siteSetting.findUnique({
-    where: {
-      key: "quizzesPerCategory",
-    },
-    select: {
-      value: true,
-    },
-  });
+ const quizLimitSetting = await prisma.siteSetting.findUnique({
+  where: {
+    key: "quizzesPerCategory",
+  },
+  select: {
+    value: true,
+  },
+}).catch((error) => {
+  console.error("Category quiz limit database error:", error);
+  throw error;
+});
 
   const parsedQuizLimit = Number(
     quizLimitSetting?.value ?? "10"
@@ -75,6 +78,9 @@ export default async function CategoryPage({
         take: quizLimit,
       },
     },
+    }).catch((error) => {
+    console.error("Category puzzles database error:", error);
+    throw error;
   });
 
   if (!category || !category.isActive) {

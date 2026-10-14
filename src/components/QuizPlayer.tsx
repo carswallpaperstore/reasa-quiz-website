@@ -31,87 +31,145 @@ export default function QuizPlayer({ puzzleId, puzzleTitle, categoryName, backgr
   const progress = questions.length ? ((current + 1) / questions.length) * 100 : 0;
 
  
+
 async function selectOption(optionId: string) {
   if (!question || busy || feedback || selectedOption) return;
-
-  const chosenOption = question.options.find(
-    (option) => option.id === optionId
-  );
-
-  if (!chosenOption) return;
 
   setSelectedOption(optionId);
   setBusy(true);
   setError("");
 
-  const nextAnswers = {
-    ...answers,
-    [question.id]: optionId,
-  };
-
+  const nextAnswers = { ...answers, [question.id]: optionId };
   setAnswers(nextAnswers);
 
-  setFeedback({
-    correct: chosenOption.isCorrect,
-    explanation: question.explanation || null,
-  });
+  try {
+    const response = await fetch("/api/attempts/check-answer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+      body: JSON.stringify({
+        puzzleId,
+        questionId: question.id,
+        optionId,
+      }),
+    });
 
-  advanceTimer.current = setTimeout(async () => {
-    if (current < questions.length - 1) {
-      setCurrent((value) => value + 1);
-      setSelectedOption(null);
-      setFeedback(null);
-      setBusy(false);
-      return;
+    const checked = await response.json();
+
+    if (!response.ok) {
+      throw new Error(checked.error || "Could not check this answer.");
     }
 
-    try {
-      const resultResponse = await fetch("/api/attempts", {
+    setFeedback({
+      correct: Boolean(checked.isCorrect),
+      explanation: checked.explanation || null,
+    });
+
+    const isLastQuestion = current === questions.length - 1;
+
+    // Start saving the final result immediately, while feedback is visible.
+    let resultSavePromise: Promise<{
+      ok: boolean;
+      data?: { attemptId?: string };
+      error?: string;
+    }> | null = null;
+
+    if (isLastQuestion) {
+      resultSavePromise = fetch("/api/attempts", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
         body: JSON.stringify({
           puzzleId,
           answers: nextAnswers,
           elapsedSeconds,
         }),
-      });
+      })
+        .then(async (resultResponse) => {
+          const data = await resultResponse.json();
 
-      const result = await resultResponse.json();
+          if (!resultResponse.ok) {
+            return {
+              ok: false,
+              error: data.error || "Failed to save your result.",
+            };
+          }
 
-      if (!resultResponse.ok) {
-        throw new Error(
-          result.error || "Failed to save your result."
-        );
+          return { ok: true, data };
+        })
+        .catch((err: unknown) => ({
+          ok: false,
+          error:
+            err instanceof Error
+              ? err.message
+              : "Unable to save your result.",
+        }));
+    }
+
+    advanceTimer.current = setTimeout(async () => {
+      if (!isLastQuestion) {
+        setCurrent((value) => value + 1);
+        setSelectedOption(null);
+        setFeedback(null);
+        setBusy(false);
+        return;
       }
 
       try {
-        const done = JSON.parse(
-          localStorage.getItem("reasa-completed") || "[]"
-        ) as string[];
-
-        if (!done.includes(puzzleId)) {
-          localStorage.setItem(
-            "reasa-completed",
-            JSON.stringify([...done, puzzleId])
-          );
+        if (!resultSavePromise) {
+          throw new Error("Result submission could not be started.");
         }
-      } catch {}
 
-      window.location.assign(
-        `/result/${result.attemptId}?time=${elapsedSeconds}`
-      );
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Unable to save your result."
-      );
-      setBusy(false);
-    }
-  }, current === questions.length - 1 ? 100 : 700);
+        const saved = await resultSavePromise;
+
+        if (!saved.ok || !saved.data?.attemptId) {
+          throw new Error(saved.error || "Failed to save your result.");
+        }
+
+        try {
+          const done = JSON.parse(
+            localStorage.getItem("reasa-completed") || "[]"
+          ) as string[];
+
+          if (!done.includes(puzzleId)) {
+            localStorage.setItem(
+              "reasa-completed",
+              JSON.stringify([...done, puzzleId])
+            );
+          }
+        } catch {
+          // Local storage is optional; the saved server result remains valid.
+        }
+
+        window.location.assign(
+          `/result/${saved.data.attemptId}?time=${elapsedSeconds}`
+        );
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Unable to save your result."
+        );
+        setFeedback(null);
+        setBusy(false);
+        setSelectedOption(null);
+      }
+    }, 700);
+  } catch (err) {
+    setError(
+      err instanceof Error ? err.message : "Unable to check your answer."
+    );
+    setBusy(false);
+    setSelectedOption(null);
+
+    setAnswers((previous) => {
+      const copy = { ...previous };
+      delete copy[question.id];
+      return copy;
+    });
+  }
 }
+
 
 
   if (!question) return <div className="reasa-empty">No questions available yet. <Link href="/categories">Browse categories</Link></div>;

@@ -9,10 +9,22 @@ export const revalidate = 300;
 
 
 export default async function CategoriesPage() {
-  const categories = await prisma.category.findMany({
-    where: { isActive: true }, orderBy: { sortOrder: "asc" },
-    include: { _count: { select: { puzzles: { where: { published: true } } } } },
-  });
+ 
+const categories = await prisma.category.findMany({
+  where: { isActive: true },
+  orderBy: { sortOrder: "asc" },
+  include: {
+    _count: {
+      select: {
+        puzzles: { where: { published: true } },
+      },
+    },
+  },
+}).catch((error) => {
+  console.error("Categories page database error:", error);
+  throw error;
+});
+
   return <><Header /><main>
     <section className="reasa-page-hero"><div className="reasa-shell"><span className="reasa-eyebrow"><Sparkles size={13} /> Choose your universe</span><h1>Explore All Categories</h1><p>Find your favourite category and challenge yourself with puzzles, trivia, mysteries and brain teasers. Every answer takes you one step further.</p></div></section>
     <section className="reasa-page-main"><div className="reasa-shell"><div className="reasa-section-head"><div><div className="reasa-section-kicker">Your next brain adventure</div><h2 className="reasa-section-title">Pick a category to begin</h2></div><span className="reasa-pill"><BrainCircuit size={13} /> {categories.length} categories</span></div>

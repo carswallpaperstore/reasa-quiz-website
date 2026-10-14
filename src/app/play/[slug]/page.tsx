@@ -47,6 +47,9 @@ export default async function PuzzlePage({ params }: Props) {
         },
       },
     },
+    }).catch((error) => {
+    console.error("Puzzle page database error:", error);
+    throw error;
   });
 
   if (!puzzle || !puzzle.published) {

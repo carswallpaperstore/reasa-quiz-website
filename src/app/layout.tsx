@@ -48,6 +48,5 @@ export default function RootLayout({
     <SiteFooter />
   </body>
 </html>
-
   );
 }

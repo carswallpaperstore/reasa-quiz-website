@@ -7,8 +7,6 @@ import QuizGrid from "@/components/QuizGrid";
 import { prisma } from "@/lib/prisma";
 export const revalidate = 60;
 
-
-
 export default async function HomePage() {
   const [categories, featured, trending, latest] = await Promise.all([
     prisma.category.findMany({ where: { isActive: true }, orderBy: { sortOrder: "asc" }, take: 12, include: { _count: { select: { puzzles: { where: { published: true } } } } } }),

@@ -1,10 +1,9 @@
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
   @import "tailwindcss";
 
   :root{--bg:#050716;--panel:#0b1030;--panel2:#10183d;--line:rgba(145,155,255,.19);--text:#f6f7ff;--muted:#a6afd4;--purple:#8b5cf6;--pink:#ed4dff;--cyan:#47e8ff;--green:#34e6b0;}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth;background:var(--bg)}
-  body{margin:0;background:radial-gradient(ellipse at 50% -20%,#20245b 0%,#090b20 42%,#050716 75%);color:var(--text);font-family:"DM Sans",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+  body{margin:0;background:radial-gradient(ellipse at 50% -20%,#20245b 0%,#090b20 42%,#050716 75%);color:var(--text);font-family:"DM Sans",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; min-height:100vh}
   a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
   button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
   img{max-width:100%;height:auto;display:block}
@@ -2105,3 +2104,44 @@
     font-size: 19px;
   }
 }
+
+
+
+/* Global interaction feedback */
+.reasa-button,
+.reasa-icon-button,
+button,
+a.reasa-quiz-card,
+.reasa-category-card {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button,
+.reasa-button,
+.reasa-icon-button {
+  transition:
+    transform 0.12s ease,
+    opacity 0.12s ease,
+    filter 0.12s ease;
+}
+
+button:active:not(:disabled),
+.reasa-button:active,
+.reasa-icon-button:active {
+  transform: scale(0.97);
+  filter: brightness(1.2);
+}
+
+button:disabled,
+.reasa-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #b794ff;
+  outline-offset: 3px;
+}
+

@@ -4,7 +4,9 @@ import Header from "@/components/Header";
 import CategoryIcon from "@/components/CategoryIcon";
 import { prisma } from "@/lib/prisma";
 import { ArrowRight, BrainCircuit, Sparkles } from "lucide-react";
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
+
+
 
 export default async function CategoriesPage() {
   const categories = await prisma.category.findMany({

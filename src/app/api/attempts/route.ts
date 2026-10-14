@@ -22,18 +22,29 @@ export async function POST(request: Request) {
       );
     }
 
+
     const puzzle = await prisma.puzzle.findUnique({
       where: {
         id: puzzleId,
       },
-      include: {
+      select: {
+        id: true,
+        published: true,
         questions: {
-          include: {
-            options: true,
+          select: {
+            id: true,
+            points: true,
+            options: {
+              select: {
+                id: true,
+                isCorrect: true,
+              },
+            },
           },
         },
       },
     });
+
 
     if (!puzzle || !puzzle.published) {
       return NextResponse.json(

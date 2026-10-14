@@ -5,7 +5,9 @@ import CategoryIcon from "@/components/CategoryIcon";
 import Header from "@/components/Header";
 import QuizGrid from "@/components/QuizGrid";
 import { prisma } from "@/lib/prisma";
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+
 
 export default async function HomePage() {
   const [categories, featured, trending, latest] = await Promise.all([
@@ -57,12 +59,18 @@ export default async function HomePage() {
 
         {trending.length > 0 && <section className="reasa-section">
           <div className="reasa-section-head"><div><div className="reasa-section-kicker"><Flame size={13} style={{ display: "inline", verticalAlign: "middle" }} /> Popular right now</div><h2 className="reasa-section-title">Trending Challenges</h2></div></div>
-          <div className="reasa-feature-grid">{trending.slice(0, 3).map((puzzle, index) => <Link key={puzzle.id} href={`/play/${puzzle.slug}`} className="reasa-quiz-card"><div className="reasa-quiz-image">{(puzzle.image || puzzle.thumbnail) && <img src={puzzle.image || puzzle.thumbnail || ""} alt={`${puzzle.category.name} topic`} loading="lazy" />}</div><div className="reasa-quiz-body"><span className="reasa-pill"><Flame size={12} /> Trending #{index + 1}</span><h3>{puzzle.title}</h3><p>{puzzle.description}</p><div className="reasa-card-meta"><span>{puzzle.category.name}</span><span>{puzzle.questionCount} questions</span></div></div></Link>)}</div>
+          <div className="reasa-feature-grid">{trending.slice(0, 3).map((puzzle, index) => <Link key={puzzle.id} href={`/play/${puzzle.slug}`} className="reasa-quiz-card"><div className="reasa-quiz-image">{(puzzle.image || puzzle.thumbnail) && <img
+            src={puzzle.image || puzzle.thumbnail || ""}
+            alt={`${puzzle.category.name} topic`}
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "auto"}
+            decoding="async"
+          />}</div><div className="reasa-quiz-body"><span className="reasa-pill"><Flame size={12} /> Trending #{index + 1}</span><h3>{puzzle.title}</h3><p>{puzzle.description}</p><div className="reasa-card-meta"><span>{puzzle.category.name}</span><span>{puzzle.questionCount} questions</span></div></div></Link>)}</div>
         </section>}
 
         <section className="reasa-challenge-band"><div><div className="reasa-section-kicker"><Zap size={13} style={{ display: "inline", verticalAlign: "middle" }} /> Your next streak starts here</div><h2 className="reasa-section-title">Small steps in knowledge.<br />Big wins for your brain.</h2><p className="reasa-section-desc">Take a quick challenge and make curiosity a daily habit.</p></div><Link href="/categories" className="reasa-button reasa-button-primary">Find a Challenge <ArrowRight size={16} /></Link></section>
       </div>
     </main>
-    
+
   </>;
 }

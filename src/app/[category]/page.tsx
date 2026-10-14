@@ -12,7 +12,9 @@ import {
   Puzzle,
 } from "lucide-react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+
 
 type CategoryPageProps = {
   params: Promise<{ category: string }>;

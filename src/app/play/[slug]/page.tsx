@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import QuizPlayer from "@/components/QuizPlayer";
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
 
 type Props = {
   params: Promise<{
@@ -33,12 +34,15 @@ export default async function PuzzlePage({ params }: Props) {
             orderBy: {
               sortOrder: "asc",
             },
+
             select: {
               id: true,
               text: true,
               image: true,
               sortOrder: true,
+              isCorrect: true,
             },
+
           },
         },
       },

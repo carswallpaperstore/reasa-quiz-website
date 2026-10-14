@@ -18,8 +18,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}<SiteFooter /></body>
-    </html>
+   
+<html lang="en">
+  <head>
+    <link
+      rel="preconnect"
+      href="https://images.unsplash.com"
+      crossOrigin="anonymous"
+    />
+    <link
+      rel="dns-prefetch"
+      href="//images.unsplash.com"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2000&q=80"
+      media="(min-width: 761px)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1000&q=75"
+      media="(max-width: 760px)"
+    />
+  </head>
+  <body>
+    {children}
+    <SiteFooter />
+  </body>
+</html>
+
   );
 }

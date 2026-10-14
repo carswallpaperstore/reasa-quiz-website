@@ -6,7 +6,13 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, BrainCircuit, Check, CircleHelp, Clock3, LoaderCircle, X } from "lucide-react";
 
-type Option = { id: string; text: string; image: string | null };
+
+type Option = {
+  id: string;
+  text: string;
+  image: string | null;
+  isCorrect: boolean;
+};
 type Question = { id: string; question: string; image: string | null; explanation: string | null; points: number; options: Option[] };
 type Props = { puzzleId: string; puzzleTitle: string; categoryName: string; backgroundImage: string | null; questions: Question[] };
 
@@ -24,51 +30,89 @@ export default function QuizPlayer({ puzzleId, puzzleTitle, categoryName, backgr
   const question = questions[current];
   const progress = questions.length ? ((current + 1) / questions.length) * 100 : 0;
 
-  async function selectOption(optionId: string) {
-    if (!question || busy || feedback || selectedOption) return;
-    setSelectedOption(optionId); // Instant visual response, before network returns.
-    setBusy(true);
-    setError("");
-    const nextAnswers = { ...answers, [question.id]: optionId };
-    setAnswers(nextAnswers);
-    try {
-      const response = await fetch("/api/attempts/check-answer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        cache: "no-store",
-        body: JSON.stringify({ puzzleId, questionId: question.id, optionId }),
-      });
-      const checked = await response.json();
-      if (!response.ok) throw new Error(checked.error || "Could not check this answer.");
-      setFeedback({ correct: Boolean(checked.isCorrect), explanation: checked.explanation || null });
-      advanceTimer.current = setTimeout(async () => {
-        if (current < questions.length - 1) {
-          setCurrent(value => value + 1);
-          setSelectedOption(null);
-          setFeedback(null);
-          setBusy(false);
-          return;
-        }
-        try {
-          const resultResponse = await fetch("/api/attempts", {
-            method: "POST", headers: { "Content-Type": "application/json" }, cache: "no-store",
-            body: JSON.stringify({ puzzleId, answers: nextAnswers, elapsedSeconds }),
-          });
-          const result = await resultResponse.json();
-          if (!resultResponse.ok) throw new Error(result.error || "Failed to save your result.");
-          try { const done = JSON.parse(localStorage.getItem("reasa-completed") || "[]") as string[]; if (!done.includes(puzzleId)) localStorage.setItem("reasa-completed", JSON.stringify([...done, puzzleId])); } catch {}
-          window.location.assign(`/result/${result.attemptId}?time=${elapsedSeconds}`);
-        } catch (err) {
-          setError(err instanceof Error ? err.message : "Unable to save your result.");
-          setFeedback(null); setBusy(false);
-        }
-      }, 700);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to check your answer.");
-      setBusy(false); setSelectedOption(null);
-      setAnswers(previous => { const copy = { ...previous }; delete copy[question.id]; return copy; });
+ 
+async function selectOption(optionId: string) {
+  if (!question || busy || feedback || selectedOption) return;
+
+  const chosenOption = question.options.find(
+    (option) => option.id === optionId
+  );
+
+  if (!chosenOption) return;
+
+  setSelectedOption(optionId);
+  setBusy(true);
+  setError("");
+
+  const nextAnswers = {
+    ...answers,
+    [question.id]: optionId,
+  };
+
+  setAnswers(nextAnswers);
+
+  setFeedback({
+    correct: chosenOption.isCorrect,
+    explanation: question.explanation || null,
+  });
+
+  advanceTimer.current = setTimeout(async () => {
+    if (current < questions.length - 1) {
+      setCurrent((value) => value + 1);
+      setSelectedOption(null);
+      setFeedback(null);
+      setBusy(false);
+      return;
     }
-  }
+
+    try {
+      const resultResponse = await fetch("/api/attempts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          puzzleId,
+          answers: nextAnswers,
+          elapsedSeconds,
+        }),
+      });
+
+      const result = await resultResponse.json();
+
+      if (!resultResponse.ok) {
+        throw new Error(
+          result.error || "Failed to save your result."
+        );
+      }
+
+      try {
+        const done = JSON.parse(
+          localStorage.getItem("reasa-completed") || "[]"
+        ) as string[];
+
+        if (!done.includes(puzzleId)) {
+          localStorage.setItem(
+            "reasa-completed",
+            JSON.stringify([...done, puzzleId])
+          );
+        }
+      } catch {}
+
+      window.location.assign(
+        `/result/${result.attemptId}?time=${elapsedSeconds}`
+      );
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to save your result."
+      );
+      setBusy(false);
+    }
+  }, current === questions.length - 1 ? 100 : 700);
+}
+
 
   if (!question) return <div className="reasa-empty">No questions available yet. <Link href="/categories">Browse categories</Link></div>;
   const selected = selectedOption;

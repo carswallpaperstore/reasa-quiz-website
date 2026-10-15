@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SiteFooter from "@/components/SiteFooter";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://reasa.in"),
@@ -45,6 +46,7 @@ export default function RootLayout({
   </head>
   <body>
     {children}
+    <GoogleAnalytics gaId="G-QNP87G5KWM" />
     <SiteFooter />
   </body>
 </html>

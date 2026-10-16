@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SiteFooter from "@/components/SiteFooter";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://reasa.in"),
@@ -45,6 +46,8 @@ export default function RootLayout({
     />
   </head>
   <body>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1479344722020149"
+     crossOrigin="anonymous"></script>
     {children}
     <GoogleAnalytics gaId="G-QNP87G5KWM" />
     <SiteFooter />

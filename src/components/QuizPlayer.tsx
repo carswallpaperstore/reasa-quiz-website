@@ -459,43 +459,33 @@ export default function QuizPlayer({
           </div>
         </section>
 
-
-{/* Adsterra banner */}
-<div
-  id="reasa-ad-container"
-  style={{
-    width: "100%",
-    minHeight: 50,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 24,
-    marginBottom: 16,
-    overflow: "hidden",
-  }}
->
-  <Script
-    id="reasa-ad-options"
-    strategy="afterInteractive"
-  >
-    {`
-      window.atOptions = {
-        key: '994f189a2a81fea74975133e1c6a8a2b',
-        format: 'iframe',
-        height: 50,
-        width: 320,
-        params: {}
-      };
-    `}
-  </Script>
-
-  <Script
-    id="reasa-ad-banner"
-    src="https://bauval.org/22/994f189a2a81fea74975133e1c6a8a2b"
-    strategy="afterInteractive"
-  />
-</div>
-
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 16,
+          }}
+        >
+          <div style={{ width: 320, maxWidth: "100%", height: 50, overflow: "hidden" }}>
+            <Script
+              id="adsterra-banner-options"
+              strategy="afterInteractive"
+            >
+              {`window.atOptions = {
+  'key' : '994f189a2a81fea74975133e1c6a8a2b',
+  'format' : 'iframe',
+  'height' : 50,
+  'width' : 320,
+  'params' : {}
+};`}
+            </Script>
+            <Script
+              id="adsterra-banner-script"
+              src="https://bauval.org/22/994f189a2a81fea74975133e1c6a8a2b"
+              strategy="afterInteractive"
+            />
+          </div>
+        </div>
 
         <footer
           style={{

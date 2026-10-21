@@ -459,38 +459,43 @@ export default function QuizPlayer({
           </div>
         </section>
 
-        {/* Adsterra banner */}
-        <div
-          style={{
-            width: "100%",
-            minHeight: 50,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 24,
-            marginBottom: 16,
-            overflow: "hidden",
-          }}
-        >
-          <div id="reasa-ad-container" />
-        </div>
+       
+{/* Adsterra banner */}
+<div
+  style={{
+    width: "100%",
+    minHeight: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 24,
+    marginBottom: 16,
+    overflow: "hidden",
+  }}
+>
+  <Script
+    id="reasa-ad-options"
+    strategy="afterInteractive"
+  >
+    {`
+      var atOptions = {
+        key: '994f189a2a81fea74975133e1c6a8a2b',
+        format: 'iframe',
+        height: 50,
+        width: 320,
+        params: {}
+      };
+    `}
+  </Script>
 
-        <Script id="reasa-ad-options" strategy="afterInteractive">
-          {`var atOptions = {
-    key: '994f189a2a81fea74975133e1c6a8a2b',
-    format: 'iframe',
-    height: 50,
-    width: 320,
-    params: {}
-  };`}
-        </Script>
-{/*
+  <Script
+    id="reasa-ad-banner"
+    src="https://bauval.org/22/994f189a2a81fea74975133e1c6a8a2b"
+    strategy="afterInteractive"
+  />
+</div>
 
-        <Script
-          src="https://bauval.org/22/994f189a2a81fea74975133e1c6a8a2b"
-          strategy="afterInteractive"
-        />
-*/}
+
         <footer
           style={{
             display: "flex",

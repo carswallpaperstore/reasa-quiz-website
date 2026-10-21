@@ -459,9 +459,10 @@ export default function QuizPlayer({
           </div>
         </section>
 
-       
+
 {/* Adsterra banner */}
 <div
+  id="reasa-ad-container"
   style={{
     width: "100%",
     minHeight: 50,
@@ -478,7 +479,7 @@ export default function QuizPlayer({
     strategy="afterInteractive"
   >
     {`
-      var atOptions = {
+      window.atOptions = {
         key: '994f189a2a81fea74975133e1c6a8a2b',
         format: 'iframe',
         height: 50,

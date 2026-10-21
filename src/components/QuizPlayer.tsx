@@ -459,32 +459,29 @@ export default function QuizPlayer({
           </div>
         </section>
 
-        <div
+   <div
           style={{
             display: "flex",
             justifyContent: "center",
             paddingTop: 16,
           }}
         >
-          <div style={{ width: 320, maxWidth: "100%", height: 50, overflow: "hidden" }}>
-            <Script
-              id="adsterra-banner-options"
-              strategy="afterInteractive"
-            >
-              {`window.atOptions = {
-  'key' : '994f189a2a81fea74975133e1c6a8a2b',
-  'format' : 'iframe',
-  'height' : 50,
-  'width' : 320,
-  'params' : {}
-};`}
-            </Script>
-            <Script
-              id="adsterra-banner-script"
-              src="https://bauval.org/22/994f189a2a81fea74975133e1c6a8a2b"
-              strategy="afterInteractive"
-            />
-          </div>
+          <iframe
+            title="Advertisement"
+            width="320"
+            height="50"
+            loading="lazy"
+            scrolling="no"
+            style={{
+              display: "block",
+              width: "320px",
+              maxWidth: "100%",
+              height: "50px",
+              border: 0,
+              overflow: "hidden",
+            }}
+            srcDoc={"<!doctype html><html><head><meta name='viewport' content='width=device-width,initial-scale=1'></head><body style='margin:0;padding:0;width:320px;height:50px;overflow:hidden'><script>var atOptions = {'key':'994f189a2a81fea74975133e1c6a8a2b','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src='https://bauval.org/22/994f189a2a81fea74975133e1c6a8a2b'><\/script></body></html>"}
+          />
         </div>
 
         <footer

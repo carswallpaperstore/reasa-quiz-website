@@ -484,12 +484,13 @@ export default function QuizPlayer({
     params: {}
   };`}
         </Script>
+{/*
 
         <Script
           src="https://bauval.org/22/994f189a2a81fea74975133e1c6a8a2b"
           strategy="afterInteractive"
         />
-
+*/}
         <footer
           style={{
             display: "flex",

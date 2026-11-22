@@ -30,6 +30,7 @@ type BadgeItem = {
 
 type HistoryItem = {
   id: string;
+  puzzleId: string;
   title: string;
   slug: string;
   category: string;
@@ -455,14 +456,14 @@ if (loading) {
                 </span>
               </div>
 
-              <Link
+              <StartQuizLink
                 href={`/play/${encodeURIComponent(item.slug)}`}
+                puzzleId={item.puzzleId}
                 className="reasa-profile-history-link"
                 aria-label={`Play ${item.title} again`}
-                title="Play again"
               >
                 <ArrowRight size={19} />
-              </Link>
+              </StartQuizLink>
             </div>
           ))}
         </div>

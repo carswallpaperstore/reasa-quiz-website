@@ -24,6 +24,12 @@ export default function RootLayout({
 <html lang="en">
   <head>
     <link
+      rel="preload"
+      as="image"
+      href="/reasa-loading-logo.webp"
+      fetchPriority="high"
+    />
+    <link
       rel="preconnect"
       href="https://images.unsplash.com"
       crossOrigin="anonymous"
@@ -36,13 +42,13 @@ export default function RootLayout({
       rel="preload"
       as="image"
       href="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2000&q=80"
-      media="(min-width: 761px)"
+      media="(min-width: 1200px)"
     />
     <link
       rel="preload"
       as="image"
       href="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1000&q=75"
-      media="(max-width: 760px)"
+      media="(max-width: 1199px)"
     />
   </head>
   <body>

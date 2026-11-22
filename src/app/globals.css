@@ -27,7 +27,7 @@
   .reasa-mobile-menu{display:none;padding:8px 20px 18px;border-top:1px solid var(--line);background:#080b20}
   .reasa-mobile-menu a{display:block;padding:12px 4px;color:#d6daf5;font-size:14px;font-weight:700}
   .reasa-hero{position:relative;isolation:isolate;overflow:hidden;min-height:510px;display:flex;align-items:center;border-bottom:1px solid #8c65ff20;background:#080b22}
-  .reasa-hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(90deg,rgba(5,7,22,.97) 0%,rgba(5,7,22,.76) 43%,rgba(5,7,22,.12) 100%),linear-gradient(0deg,#050716 0%,transparent 42%),url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2000&q=80');background-size:cover;background-position:center 42%;transform:scale(1.01)}
+  .reasa-hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(90deg,rgba(5,7,22,.97) 0%,rgba(5,7,22,.76) 43%,rgba(5,7,22,.12) 100%),linear-gradient(0deg,#050716 0%,transparent 42%),url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1000&q=75');background-size:cover;background-position:center 42%;transform:scale(1.01)}
   .reasa-hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 78% 30%,#b249ff2b,transparent 32%),radial-gradient(circle at 55% 90%,#1c61ff1c,transparent 40%)}
   .reasa-hero-inner{width:min(1240px,calc(100% - 40px));margin:auto;padding:76px 0 84px}
   .reasa-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid #b96cff4a;border-radius:99px;background:#7c3aed18;color:#d9b8ff;font-size:10px;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
@@ -2604,5 +2604,59 @@ a:focus-visible {
 
   .reasa-app-promo-button {
     width: 100%;
+  }
+}
+
+
+/* Compact logo splash is used only on the first homepage opening. */
+.reasa-home-opening-loader{position:fixed;inset:0;z-index:9999;display:grid;align-content:center;justify-items:center;gap:18px;min-height:100svh;background:radial-gradient(ellipse at 50% 45%,rgba(75,35,190,.2),transparent 44%),linear-gradient(145deg,#100536 0%,#05051b 52%,#080020 100%);color:#fff}
+.reasa-home-opening-loader img{display:block;width:112px;height:112px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(160,73,255,.3));animation:reasa-splash-breathe 1.4s ease-in-out infinite}
+.reasa-home-splash-track{display:block;width:104px;height:3px;overflow:hidden;border-radius:99px;background:rgba(185,145,255,.2)}
+.reasa-home-splash-track i{display:block;width:38%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#8b5cff,#ed7bff,#7b8dff);animation:reasa-loader-progress 1s ease-in-out infinite}
+@keyframes reasa-splash-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+
+/* Instagram-style skeleton loading for all internal navigation. */
+.reasa-route-skeleton,.reasa-quiz-loading{min-height:100svh;padding:22px 16px 48px;background:#080b18;color:#f8fafc}
+.reasa-skeleton-header{width:min(1120px,100%);height:52px;margin:0 auto 24px;display:flex;align-items:center;justify-content:space-between}
+.reasa-skeleton-brand{width:104px;height:25px;border-radius:8px}
+.reasa-skeleton-nav{width:180px;height:14px;border-radius:8px}
+.reasa-skeleton-hero{width:min(1120px,100%);min-height:240px;margin:0 auto 28px;padding:38px 28px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:13px;border:1px solid rgba(145,155,255,.12);border-radius:22px;background:linear-gradient(145deg,#111735,#0b0d24)}
+.reasa-skeleton-hero.compact{min-height:190px}
+.reasa-skeleton-title{width:min(490px,82%);height:38px;margin:5px 0}
+.reasa-skeleton-copy{width:min(580px,75%);height:13px}
+.reasa-skeleton-copy-short{width:min(350px,48%)}
+.reasa-skeleton-button{width:142px;height:42px;margin-top:8px;border-radius:12px}
+.reasa-skeleton-content{width:min(1120px,100%);margin:0 auto}
+.reasa-skeleton-heading{width:240px;height:26px;margin:0 0 18px}
+.reasa-skeleton-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.reasa-skeleton{position:relative;overflow:hidden;background:linear-gradient(100deg,#111735 20%,#29234e 38%,#111735 58%);background-size:220% 100%;animation:reasa-skeleton-shimmer 1.35s ease-in-out infinite}
+.reasa-skeleton-badge{width:105px;height:20px;border-radius:999px}
+.reasa-skeleton-image{display:block;width:100%;height:158px;border-radius:0}
+.reasa-skeleton-card-title{display:block;width:85%;height:19px}
+.reasa-skeleton-small{display:block;width:78px;height:14px;border-radius:7px}
+.reasa-skeleton-live{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.reasa-quiz-loading-wrap{width:min(900px,100%);margin:0 auto}
+.reasa-quiz-loading-top{height:48px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.reasa-skeleton-back{width:38px;height:38px;border-radius:12px}
+.reasa-quiz-loading-progress{display:flex;align-items:center;gap:14px;padding:15px 18px;margin-bottom:16px;border:1px solid rgba(145,155,255,.13);border-radius:14px;background:#10142c}
+.reasa-skeleton-progress{height:7px;flex:1;border-radius:99px}
+.reasa-quiz-loading-card{overflow:hidden;border:1px solid rgba(145,155,255,.15);border-radius:20px;background:#10142c}
+.reasa-quiz-loading-image{display:block;width:100%;height:210px}
+.reasa-quiz-loading-body{padding:24px}
+.reasa-quiz-loading-question{display:block;width:88%;height:25px;margin-top:20px}
+.reasa-quiz-loading-question.short{width:57%;margin-top:10px}
+.reasa-quiz-loading-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:25px}
+.reasa-quiz-loading-option{display:block;height:62px;border-radius:13px}
+@keyframes reasa-skeleton-shimmer{0%{background-position:100% 0}100%{background-position:-120% 0}}
+@media(max-width:760px){.reasa-skeleton-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.reasa-skeleton-hero{padding:30px 20px;min-height:210px}.reasa-skeleton-title{height:30px}.reasa-skeleton-image{height:125px}.reasa-quiz-loading-image{height:150px}.reasa-quiz-loading-body{padding:18px}.reasa-quiz-loading-options{grid-template-columns:1fr;gap:9px}.reasa-quiz-loading-option{height:54px}}
+@media(prefers-reduced-motion:reduce){.reasa-skeleton,.reasa-home-opening-loader img,.reasa-home-splash-track i{animation:none}}
+
+/* Use a lighter hero asset on phones/tablets; desktop keeps the high-res image. */
+@media(min-width:1200px){
+  .reasa-hero::before{
+    background-image:
+      linear-gradient(90deg,rgba(5,7,22,.97) 0%,rgba(5,7,22,.76) 43%,rgba(5,7,22,.12) 100%),
+      linear-gradient(0deg,#050716 0%,transparent 42%),
+      url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2000&q=80');
   }
 }

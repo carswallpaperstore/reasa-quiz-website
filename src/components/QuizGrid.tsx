@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import StartQuizLink from "@/components/StartQuizLink";
 import { useEffect, useState } from "react";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import CategoryIcon from "@/components/CategoryIcon";
@@ -63,7 +64,7 @@ export default function QuizGrid({
                 <img
                   src={imageSrc}
                   alt={`${p.title} topic`}
-                  loading={index < 2 ? "eager" : "lazy"}
+                  loading={index === 0 ? "eager" : "lazy"}
                   fetchPriority={index === 0 ? "high" : "auto"}
                   decoding="async"
                 />
@@ -125,15 +126,15 @@ export default function QuizGrid({
         }
 
         return (
-          <Link
+          <StartQuizLink
             key={p.id}
+            puzzleId={p.id}
             href={`/play/${p.slug}`}
-            prefetch={true}
             className="reasa-quiz-card"
             aria-label={`Play quiz: ${p.title}`}
           >
             {content}
-          </Link>
+          </StartQuizLink>
         );
       })}
     </div>

@@ -1,51 +1,51 @@
+"use client";
 
-import Header from "@/components/Header";
+import { usePathname } from "next/navigation";
 
-function SkeletonBlock({
-  className = "",
-}: {
-  className?: string;
-}) {
-  return <div className={`reasa-skeleton ${className}`} />;
+function HomeOpeningLoader() {
+  return (
+    <main className="reasa-home-opening-loader" role="status" aria-label="Opening REASA">
+      <img src="/reasa-loading-logo.webp" alt="REASA" width="112" height="112" fetchPriority="high" />
+      <span className="reasa-home-splash-track" aria-hidden="true"><i /></span>
+    </main>
+  );
+}
+
+function RouteSkeleton() {
+  return (
+    <main className="reasa-route-skeleton" role="status" aria-label="Loading page">
+      <div className="reasa-skeleton-header">
+        <span className="reasa-skeleton reasa-skeleton-brand" />
+        <span className="reasa-skeleton reasa-skeleton-nav" />
+      </div>
+      <section className="reasa-skeleton-hero">
+        <span className="reasa-skeleton reasa-skeleton-badge" />
+        <span className="reasa-skeleton reasa-skeleton-title" />
+        <span className="reasa-skeleton reasa-skeleton-copy" />
+        <span className="reasa-skeleton reasa-skeleton-copy reasa-skeleton-copy-short" />
+        <span className="reasa-skeleton reasa-skeleton-button" />
+      </section>
+      <section className="reasa-skeleton-content">
+        <span className="reasa-skeleton reasa-skeleton-heading" />
+        <div className="reasa-skeleton-grid">
+          {Array.from({ length: 6 }, (_, index) => (
+            <article className="reasa-loading-card" key={index}>
+              <span className="reasa-skeleton reasa-skeleton-image" />
+              <div className="reasa-loading-card-body">
+                <span className="reasa-skeleton reasa-skeleton-badge" />
+                <span className="reasa-skeleton reasa-skeleton-card-title" />
+                <span className="reasa-skeleton reasa-skeleton-copy" />
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <span className="reasa-skeleton-live">Loading REASA…</span>
+    </main>
+  );
 }
 
 export default function GlobalLoading() {
-  return (
-    <>
-      {/* Navbar remains visible while the destination page loads */}
-      <Header />
-
-      <main className="reasa-loading-page" aria-busy="true">
-        <section className="reasa-loading-hero">
-          <div className="reasa-shell">
-            <SkeletonBlock className="reasa-skeleton-badge" />
-            <SkeletonBlock className="reasa-skeleton-title" />
-            <SkeletonBlock className="reasa-skeleton-copy" />
-            <SkeletonBlock className="reasa-skeleton-copy reasa-skeleton-copy-short" />
-          </div>
-        </section>
-
-        <section className="reasa-shell reasa-loading-content">
-          <div className="reasa-loading-heading">
-            <SkeletonBlock className="reasa-skeleton-heading" />
-            <SkeletonBlock className="reasa-skeleton-small" />
-          </div>
-
-          <div className="reasa-loading-grid">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <article className="reasa-loading-card" key={index}>
-                <SkeletonBlock className="reasa-skeleton-image" />
-                <div className="reasa-loading-card-body">
-                  <SkeletonBlock className="reasa-skeleton-badge" />
-                  <SkeletonBlock className="reasa-skeleton-card-title" />
-                  <SkeletonBlock className="reasa-skeleton-copy" />
-                  <SkeletonBlock className="reasa-skeleton-copy-short" />
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      </main>
-    </>
-  );
+  const pathname = usePathname();
+  return pathname === "/" ? <HomeOpeningLoader /> : <RouteSkeleton />;
 }

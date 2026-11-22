@@ -35,6 +35,7 @@ export async function GET() {
       orderBy: { completedAt: "desc" },
       select: {
         id: true,
+        puzzleId: true,
         score: true,
         totalPoints: true,
         percentage: true,
@@ -154,6 +155,7 @@ export async function GET() {
 
     const recentActivity = attempts.slice(0, 10).map((attempt) => ({
       id: attempt.id,
+      puzzleId: attempt.puzzleId,
       title: attempt.puzzle.title,
       slug: attempt.puzzle.slug,
       category: attempt.puzzle.category.name,

@@ -60,3 +60,10 @@ I checked TypeScript/TSX syntax across the project (zero syntax parse errors). A
 - Login/signup now redirect to `/profile`; navbar checks `/api/auth/me` and displays Profile while a valid session exists.
 - Profile stats are derived from completed database attempts: completed attempts, XP (10 per earned point), and accuracy. These are database-based estimates, not manually entered values.
 - Existing database `.env` and `SESSION_SECRET` must be retained. No migration/seed is needed for these additions.
+
+
+## Latest fix: quiz restart and loading states
+- Clear an unfinished quiz attempt when the player leaves for the home page/category or browser Back leaves the quiz route, so reopening the quiz starts with unselected options.
+- Prevent an in-flight answer request from writing stale progress back after the user has left the quiz.
+- Remove the large branded loader from internal navigation. The compact 112px REASA logo loader is shown only while opening the homepage; internal routes use shimmer skeleton placeholders, including the quiz screen.
+- Keep saved answers intact for refreshes and question-to-question navigation within an active quiz.

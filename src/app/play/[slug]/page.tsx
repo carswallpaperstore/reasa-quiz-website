@@ -1,58 +1,58 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import QuizPlayer from "@/components/QuizPlayer";
 export const revalidate = 60;
 
+// Cache public quiz content briefly so each question URL refresh avoids
+// repeating the same PostgreSQL read. Admin changes appear within 60 seconds.
+const getCachedPuzzle = unstable_cache(
+  async (slug: string) =>
+    prisma.puzzle.findUnique({
+      where: { slug },
+      include: {
+        category: true,
+        questions: {
+          where: { type: "MULTIPLE_CHOICE" },
+          orderBy: { sortOrder: "asc" },
+          include: {
+            options: {
+              orderBy: { sortOrder: "asc" },
+              select: {
+                id: true,
+                text: true,
+                image: true,
+                sortOrder: true,
+                isCorrect: true,
+              },
+            },
+          },
+        },
+      },
+    }),
+  ["reasa-public-quiz-by-slug-v1"],
+  { revalidate: 60, tags: ["reasa-public-quizzes"] }
+);
 
 type Props = {
   params: Promise<{
     slug: string;
   }>;
+  searchParams: Promise<{ q?: string }>;
 };
 
-export default async function PuzzlePage({ params }: Props) {
+export default async function PuzzlePage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const query = await searchParams;
 
   if (!slug) {
     notFound();
   }
 
-  const puzzle = await prisma.puzzle.findUnique({
-    where: {
-      slug,
-    },
-    include: {
-      category: true,
-      questions: {
-        where: { type: "MULTIPLE_CHOICE" },
-        orderBy: {
-          sortOrder: "asc",
-        },
-        include: {
-          options: {
-            orderBy: {
-              sortOrder: "asc",
-            },
+  const puzzle = await getCachedPuzzle(slug);
 
-            select: {
-              id: true,
-              text: true,
-              image: true,
-              sortOrder: true,
-              isCorrect: true,
-            },
-
-          },
-        },
-      },
-    },
-    }).catch((error) => {
-    console.error("Puzzle page database error:", error);
-    throw error;
-  });
-
-  if (!puzzle || !puzzle.published) {
+    if (!puzzle || !puzzle.published) {
     notFound();
   }
 
@@ -75,6 +75,8 @@ export default async function PuzzlePage({ params }: Props) {
             categoryName={puzzle.category.name}
             questions={puzzle.questions}
             backgroundImage={puzzle.image}
+            slug={slug}
+            initialQuestionIndex={Math.min(Math.max(Number.parseInt(query.q || "0", 10) || 0, 0), puzzle.questions.length - 1)}
           />
         )}
       </main>

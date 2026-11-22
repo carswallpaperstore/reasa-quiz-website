@@ -4,14 +4,12 @@
 import type { CSSProperties } from "react";
 
 import Link from "next/link";
-import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   BrainCircuit,
   Check,
   CircleHelp,
-  Clock3,
   LoaderCircle,
   X,
 } from "lucide-react";
@@ -38,6 +36,8 @@ type Props = {
   categoryName: string;
   backgroundImage: string | null;
   questions: Question[];
+  slug: string;
+  initialQuestionIndex: number;
 };
 
 export default function QuizPlayer({
@@ -46,8 +46,10 @@ export default function QuizPlayer({
   categoryName,
   backgroundImage,
   questions,
+  slug,
+  initialQuestionIndex,
 }: Props) {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(initialQuestionIndex);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{
@@ -56,37 +58,74 @@ export default function QuizPlayer({
   } | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [restored, setRestored] = useState(false);
+  const storageKey = `reasa-quiz-${puzzleId}`;
 
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const leavingQuiz = useRef(false);
 
-  // Quiz timer
+  // Restore answers and feedback after a full page navigation or refresh.
   useEffect(() => {
-    const started = Date.now();
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "null") as {
+        answers?: Record<string, string>;
+        feedback?: Record<string, { correct: boolean; explanation: string | null }>;
+      } | null;
+      if (saved?.answers) setAnswers(saved.answers);
+      const savedAnswer = saved?.answers?.[questions[initialQuestionIndex]?.id];
+      const savedFeedback = saved?.feedback?.[questions[initialQuestionIndex]?.id];
+      if (savedAnswer && savedFeedback) {
+        setSelectedOption(savedAnswer);
+        setFeedback(savedFeedback);
+      }
+    } catch {
+      // Ignore unavailable or malformed browser storage.
+    } finally {
+      setRestored(true);
+    }
+  }, [storageKey, initialQuestionIndex, questions]);
 
-    const id = window.setInterval(() => {
-      setElapsedSeconds(Math.floor((Date.now() - started) / 1000));
-    }, 1000);
-
-    return () => window.clearInterval(id);
-  }, []);
-
-  // Clear pending timer
+  // Clear pending timer and reset an unfinished attempt when browser Back leaves the quiz.
   useEffect(() => {
+    const handlePopState = () => {
+      if (!window.location.pathname.startsWith(`/play/${slug}`)) {
+        try {
+          localStorage.removeItem(storageKey);
+        } catch {
+          // Browser storage is optional.
+        }
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
     return () => {
+      window.removeEventListener("popstate", handlePopState);
       if (advanceTimer.current) {
         window.clearTimeout(advanceTimer.current);
       }
     };
-  }, []);
+  }, [slug, storageKey]);
 
   const question = questions[current];
   const progress = questions.length
     ? ((current + 1) / questions.length) * 100
     : 0;
 
+  function clearQuizProgress() {
+    leavingQuiz.current = true;
+    if (advanceTimer.current) {
+      window.clearTimeout(advanceTimer.current);
+      advanceTimer.current = null;
+    }
+    try {
+      localStorage.removeItem(storageKey);
+    } catch {
+      // Browser storage is optional.
+    }
+  }
+
   async function selectOption(optionId: string) {
-    if (!question || busy || feedback || selectedOption) return;
+    if (!restored || !question || busy || feedback || selectedOption) return;
 
     setSelectedOption(optionId);
     setBusy(true);
@@ -98,6 +137,10 @@ export default function QuizPlayer({
     };
 
     setAnswers(nextAnswers);
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "{}") as { feedback?: Record<string, unknown> };
+      localStorage.setItem(storageKey, JSON.stringify({ ...saved, answers: nextAnswers }));
+    } catch { /* Browser storage is optional. */ }
 
     try {
       const response = await fetch("/api/attempts/check-answer", {
@@ -114,6 +157,7 @@ export default function QuizPlayer({
       });
 
       const checked = await response.json();
+      if (leavingQuiz.current) return;
 
       if (!response.ok) {
         throw new Error(
@@ -121,10 +165,15 @@ export default function QuizPlayer({
         );
       }
 
-      setFeedback({
+      const answerFeedback = {
         correct: Boolean(checked.isCorrect),
         explanation: checked.explanation || null,
-      });
+      };
+      setFeedback(answerFeedback);
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "{}") as { feedback?: Record<string, unknown> };
+        localStorage.setItem(storageKey, JSON.stringify({ ...saved, answers: nextAnswers, feedback: { ...(saved.feedback || {}), [question.id]: answerFeedback } }));
+      } catch { /* Browser storage is optional. */ }
 
       const isLastQuestion = current === questions.length - 1;
 
@@ -144,7 +193,6 @@ export default function QuizPlayer({
           body: JSON.stringify({
             puzzleId,
             answers: nextAnswers,
-            elapsedSeconds,
           }),
         })
           .then(async (resultResponse) => {
@@ -170,10 +218,7 @@ export default function QuizPlayer({
 
       advanceTimer.current = setTimeout(async () => {
         if (!isLastQuestion) {
-          setCurrent((value) => value + 1);
-          setSelectedOption(null);
-          setFeedback(null);
-          setBusy(false);
+          window.location.assign(`/play/${slug}?q=${current + 1}`);
           return;
         }
 
@@ -205,9 +250,8 @@ export default function QuizPlayer({
             // Local storage is optional; the saved server result remains valid.
           }
 
-          window.location.assign(
-            `/result/${saved.data.attemptId}?time=${elapsedSeconds}`
-          );
+          try { localStorage.removeItem(storageKey); } catch { /* Optional storage. */ }
+          window.location.assign(`/result/${saved.data.attemptId}`);
         } catch (err) {
           setError(
             err instanceof Error
@@ -220,6 +264,7 @@ export default function QuizPlayer({
         }
       }, 700);
     } catch (err) {
+      if (leavingQuiz.current) return;
       setError(
         err instanceof Error
           ? err.message
@@ -234,8 +279,23 @@ export default function QuizPlayer({
         delete copy[question.id];
         return copy;
       });
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "{}") as {
+          answers?: Record<string, string>;
+          feedback?: Record<string, unknown>;
+        };
+        const savedAnswers = { ...(saved.answers || {}) };
+        const savedFeedback = { ...(saved.feedback || {}) };
+        delete savedAnswers[question.id];
+        delete savedFeedback[question.id];
+        localStorage.setItem(storageKey, JSON.stringify({ answers: savedAnswers, feedback: savedFeedback }));
+      } catch {
+        // Browser storage is optional.
+      }
     }
   }
+
+  if (!restored) return null;
 
   if (!question) {
     return (
@@ -260,7 +320,7 @@ export default function QuizPlayer({
     >
       <div className="reasa-quiz-wrap">
         <header className="reasa-quiz-top">
-          <Link href="/" className="reasa-logo">
+          <Link href="/" className="reasa-logo" onClick={clearQuizProgress}>
             <span className="reasa-logo-mark">
               <BrainCircuit size={18} />
             </span>
@@ -274,6 +334,7 @@ export default function QuizPlayer({
 
           <Link
             href="/categories"
+            onClick={clearQuizProgress}
             className="reasa-icon-button"
             aria-label="Back to category"
           >
@@ -309,11 +370,6 @@ export default function QuizPlayer({
             {Math.round(progress)}%
           </span>
 
-          <span className="reasa-live-timer" aria-live="off">
-            <Clock3 size={13} />{" "}
-            {String(Math.floor(elapsedSeconds / 60)).padStart(2, "0")}:
-            {String(elapsedSeconds % 60).padStart(2, "0")}
-          </span>
         </div>
 
         <section className="reasa-quiz-card-main">

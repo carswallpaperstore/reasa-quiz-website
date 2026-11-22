@@ -3,6 +3,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import StartQuizLink from "@/components/StartQuizLink";
+
 import {
   UserRound,
   Mail,

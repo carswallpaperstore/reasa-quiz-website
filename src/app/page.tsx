@@ -91,6 +91,49 @@ export default async function HomePage() {
           </div>
         </section>
 
+
+{/* Homepage Advertisement */}
+<div
+  style={{
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "24px 12px",
+    margin: "8px 0 20px",
+    boxSizing: "border-box",
+  }}
+>
+  <span
+    style={{
+      fontSize: "10px",
+      color: "#8992B5",
+      letterSpacing: "1.5px",
+      marginBottom: "8px",
+    }}
+  >
+    ADVERTISEMENT
+  </span>
+
+  <iframe
+    title="REASA Homepage Advertisement"
+    width="320"
+    height="50"
+    loading="lazy"
+    scrolling="no"
+    style={{
+      display: "block",
+      width: "320px",
+      maxWidth: "100%",
+      height: "50px",
+      border: 0,
+      overflow: "hidden",
+    }}
+    srcDoc={"<!doctype html><html><head><meta name='viewport' content='width=device-width,initial-scale=1'></head><body style='margin:0;padding:0;width:320px;height:50px;overflow:hidden'><script>var atOptions = {'key':'994f189a2a81fea74975133e1c6a8a2b','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src='https://bauval.org/22/994f189a2a81fea74975133e1c6a8a2b'><\/script></body></html>"}
+  />
+</div>
+
         
 <section className="reasa-app-promo">
   <div className="reasa-app-promo-icon">
